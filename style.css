@@ -1,0 +1,121 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Indie Flower', cursive;
+}
+
+main{
+    background-color: #FAF1D6;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+ 
+.borde{
+    height: 12vh;
+}
+
+.borde img{
+    height: 100%;
+}
+
+.cajaGrande{
+    display: flex;
+    height: 70vh;
+    margin: 3vh 1.5%;
+    flex-wrap: wrap;
+    padding: 1.5%;
+}
+
+.cajaInterna{
+    width: 50%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#huellaLogo{
+    width: 40%;
+}
+
+.seccionIngreso{
+    width: 100%;
+    height: auto;
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: center;
+}
+
+.datosIngreso{
+    margin: 1rem;
+    width: 40%;
+    border-radius: 1.25rem;
+    height: 2.5rem;
+    border: 4px solid #B6E3E9;
+    outline-color: #3ABFD1;
+    padding: 2%;
+    justify-content: center;
+}
+
+.seccionIngreso img{
+    z-index: 20;
+    width: 30px;
+    height: 30px;
+    right: 175px;
+    top: 20px;
+    position: absolute;
+}
+
+#iniciarSesion{
+    width: 20%;
+    border-radius: 1.25rem;
+    background-color: #FADEE1;
+    border: 4px solid rgba(255, 179, 224, 0.42);
+    margin: 0.5rem;
+    cursor: pointer;
+}
+
+.logosInicio{
+    width: 20%;
+    display: flex;
+    justify-content: space-around;
+    margin: 0.5rem;
+    cursor: pointer;
+}
+
+.logosInicio img{
+    height: 30px;
+}
+
+.texto{
+    margin: 0.5rem;
+}
+
+.slogan{
+    margin: 1.5%;
+    font-size: 1.75rem;
+    text-align: center;
+    width: 80%;
+}
+
+@media (max-width: 425px){  
+    .cajaInterna{
+        width: 100%;
+    }
+    .slogan{
+        font-size: 1rem;
+    }
+    .datosIngreso{
+        margin: 0.5rem;
+    }
+    .logosInicio{
+        width: 25%;
+    }
+}
