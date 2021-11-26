@@ -8,26 +8,23 @@
 main{
     background-color: #FAF1D6;
     width: 100%;
-    height: 100vh;
-    overflow: hidden;
+    /* height: 100vh; */
+    /* overflow: hidden; */
     display: flex;
     flex-direction: column;
 }
- 
 .borde{
     height: 12vh;
 }
-
 .borde img{
     height: 100%;
 }
-
 .cajaGrande{
     display: flex;
     height: 70vh;
     margin: 3vh 1.5%;
     flex-wrap: wrap;
-    padding: 1.5%;
+    margin: 3vh 1.5%;
 }
 
 .cajaInterna{
@@ -118,4 +115,42 @@ main{
     .logosInicio{
         width: 25%;
     }
+}
+
+/*----------------------------características de la sección del muro-----------------------------*/
+
+header{
+    width: 100%;
+    height: 106px;
+    background-color: #FADEE1;
+    display: flex;
+    justify-content: space-between;
+    padding: 1%;
+    align-items: center;
+}
+
+header p{
+    font-family: Indie Flower;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 75px;
+    line-height: 117px;
+    text-align: center;
+    color: #E7AEB4;
+    -webkit-text-stroke: 2px #DA332B;
+}
+
+.contenedorGrande{
+    background-color: #FAF1D6;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 2fr 3fr;    
+}
+
+.secUsuario{
+    background-color: #F2E0AA;
+}
+
+.secComentarios{
+    background-color: #B6E3E9;
 }
