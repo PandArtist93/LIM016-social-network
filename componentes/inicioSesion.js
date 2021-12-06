@@ -1,6 +1,11 @@
 // eslint-disable-next-line import/no-unresolved
 import { GoogleAuthProvider, FacebookAuthProvider } from 'https://www.gstatic.com/firebasejs/9.5.0/firebase-auth.js';
-import { inicioSesionUsuario, googleInicioSesion, facebookInicioSesion } from '../firebase/funcionesAuth.js';
+import {
+  inicioSesionUsuario,
+  googleInicioSesion,
+  facebookInicioSesion,
+  cierreActividadUsuario,
+} from '../firebase/funcionesAuth.js';
 import { modalInicioSesion } from './errores.js';
 import { mostrarYocultarClave } from './home.js';
 
@@ -34,47 +39,54 @@ export const formInicioSesion = () => {
   return formIngreso;
 };
 
-
 // Función que se encarga del inicio de Sesión por correo
 export const inicioSesion = (selectorForm, containerError) => {
-  mostrarYocultarClave('botonContraseña', 'claveIngreso');  // por que esta aca? 
-
+  mostrarYocultarClave('botonContraseña', 'claveIngreso');
   const iniciarCon = document.getElementById(selectorForm);
   iniciarCon.addEventListener('submit', (e) => {
     e.preventDefault();
     const correoIngreso = document.getElementById('correoIngreso').value;
     const claveIngreso = document.getElementById('claveIngreso').value;
     const ubicacionModal = document.getElementById(containerError);
+
     inicioSesionUsuario(correoIngreso, claveIngreso)
       .then((userCredential) => {
         const user = userCredential.user;
-        console.log(user);
+        console.log(userCredential);
+
         if (user.emailVerified === true) {
           window.location.hash = '#/artmuro';
         } else {
+          cierreActividadUsuario();
           ubicacionModal.innerHTML = modalInicioSesion.confirmar();
           setTimeout(() => {
-            const modalConfirmar = document.getElementById("modalConfirmar");   
-            modalConfirmar.style.display = "none";            
-          }, 4000);          
+            const modalConfirmar = document.getElementById('modalConfirmar');
+            modalConfirmar.style.display = 'none';
+          }, 4000);
         }
+        setTimeout(() => {
+          ubicacionModal.innerHTML = '';
+        }, 1500);
       })
       .catch((error) => {
         if (error.message === 'Firebase: Error (auth/invalid-email).' || error.message === 'Firebase: Error (auth/wrong-password).') {
           ubicacionModal.innerHTML = modalInicioSesion.datosInvalidos();
           setTimeout(() => {
-            const modalDatosInvalidos = document.getElementById("modalDatosInvalidos");   
-            modalDatosInvalidos.style.display = "none";            
-          }, 4000);   
+            const modalDatosInvalidos = document.getElementById('modalDatosInvalidos');
+            modalDatosInvalidos.style.display = 'none';
+          }, 4000);
         } else if (error.message === 'Firebase: Error (auth/user-not-found).') {
           ubicacionModal.innerHTML = modalInicioSesion.usuarioInvalido();
           setTimeout(() => {
-            const modalUsuarioInvalido = document.getElementById("modalUsuarioInvalido");   
-            modalUsuarioInvalido.style.display = "none";            
-          }, 4000);   
+            const modalUsuarioInvalido = document.getElementById('modalUsuarioInvalido');
+            modalUsuarioInvalido.style.display = 'none';
+          }, 4000);
         } else {
-          ubicacionModal.textContent = error.message;
+          ubicacionModal.textContent = 'Ocurrió un error';
         }
+        setTimeout(() => {
+          ubicacionModal.innerHTML = '';
+        }, 1500);
       });
   });
 
@@ -84,11 +96,11 @@ export const inicioSesion = (selectorForm, containerError) => {
     googleInicioSesion(proveedor)
       // eslint-disable-next-line no-unused-vars
       .then((result) => {
-        //console.log(result);
+        // console.log(result);
         window.location.hash = '#/artmuro';
         // This gives you a Google Access Token. You can use it to access the Google API.
         // const credential = GoogleAuthProvider.credentialFromResult(result);
-        // const token = credential.accessToken;        
+        // const token = credential.accessToken;
         const user = result.user;
         console.log(user);
       })
@@ -116,20 +128,10 @@ export const inicioSesion = (selectorForm, containerError) => {
         console.log(result);
         window.location.hash = '#/artmuro';
         // This gives you a Facebook Access Token. You can use it to access the Facebook API.
-        //const credential = FacebookAuthProvider.credentialFromResult(result);
-        //const token = credential.accessToken;
+        // const credential = FacebookAuthProvider.credentialFromResult(result);
+        // const token = credential.accessToken;
         const user = result.user;
-        console.log(user);        
-      })
-      .catch((error) => {
-        // Handle Errors here.
-        //const errorCode = error.code;
-        //const errorMessage = error.message;
-        // The email of the user's account used.
-        const email = error.email;
-        // The AuthCredential type that was used.
-        const credential = FacebookAuthProvider.credentialFromError(error);
+        console.log(user);
       });
   });
 };
-

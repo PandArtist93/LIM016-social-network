@@ -1,5 +1,10 @@
+import {
+  getFirestore,
+  collection,
+  getDocs,
+  addDoc,
 // eslint-disable-next-line import/no-unresolved
-import { getFirestore, collection, getDocs } from 'https://www.gstatic.com/firebasejs/9.5.0/firebase-firestore.js';
+} from 'https://www.gstatic.com/firebasejs/9.5.0/firebase-firestore.js';
 import { app } from './config.js';
 
 // inicializa el firestore
@@ -15,3 +20,11 @@ getDocs(colRef)
     });
     console.log(usuarios);
   });
+// agregar usuario a Firestore
+export const agregarUsuario = (nuevoUsuario, nuevoCorreo, nuevaContraseña) => {
+  addDoc(colRef, {
+    username: nuevoUsuario,
+    correo: nuevoCorreo,
+    clave: nuevaContraseña,
+  });
+};

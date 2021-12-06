@@ -9,14 +9,13 @@ export const fondoHome = (divFormulario) => {
         </div>
         ${divFormulario}
       </section>
-      <div id= "ubicacionModal"></div>
+      <div id="ubicacionModal"></div>
       <section class="borde"><img src="imagenes/bordeInferior.png"></section>
     `;
   const divFondo = document.createElement('article');
   divFondo.setAttribute('id', 'artRegistro');
   divFondo.classList.add('artRegistro');
   divFondo.innerHTML = fondo;
-
   return divFondo;
 };
 

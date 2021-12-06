@@ -61,6 +61,7 @@ form{
 
 .seccionIngreso{
     width: 52%;
+    height: 6vh;
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -146,7 +147,7 @@ form{
 }
 
 .slogan{
-    font-size: 1.75rem;
+    font-size: 2.5rem;
     text-align: center;
     width: 80%;
 }
@@ -308,6 +309,10 @@ header{
     padding: 0 20px;
 }
 
+#cerrar-sesion{
+    cursor: pointer;
+}
+
 footer{
     display: flex;
     width: 100%; 
@@ -411,5 +416,4 @@ footer{
     background-color: #E5DCC3;
     display: flex;
 }
-
 

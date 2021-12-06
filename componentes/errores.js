@@ -54,7 +54,6 @@ export const modalInicioSesion = {
     `;
     return errorMensaje;
   },
-  
   datosInvalidos: () => {
     const errorMensaje = `
       <div class= "modalError" id="modalDatosInvalidos">
