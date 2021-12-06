@@ -1,9 +1,8 @@
 // Configuracion de Firebase
-
 // eslint-disable-next-line import/no-unresolved
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.5.0/firebase-app.js';
 
-// Your web app's Firebase configuration
+// La configuración de Firebase de nuestra aplicación web
 const firebaseConfig = {
   apiKey: 'AIzaSyCaQ7ypqFXHu9ikarcZpoPLKq1t5KxNmic',
   authDomain: 'helppetsprueba2.firebaseapp.com',
@@ -13,5 +12,5 @@ const firebaseConfig = {
   appId: '1:455441875262:web:660c2751c247dc85696c6f',
 };
 
-// Initialize Firebase
+// Inicializar Firebase
 export const app = initializeApp(firebaseConfig);

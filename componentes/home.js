@@ -1,4 +1,4 @@
-// Creacion de la estructura y diseño del Home
+// Creación de la estructura y diseño del Home
 export const fondoHome = (divFormulario) => {
   const fondo = `
       <section class="borde"><img src="imagenes/bordeSuperior.png"></section>
@@ -9,6 +9,7 @@ export const fondoHome = (divFormulario) => {
         </div>
         ${divFormulario}
       </section>
+      <div id= "ubicacionModal"></div>
       <section class="borde"><img src="imagenes/bordeInferior.png"></section>
     `;
   const divFondo = document.createElement('article');
@@ -17,4 +18,16 @@ export const fondoHome = (divFormulario) => {
   divFondo.innerHTML = fondo;
 
   return divFondo;
+};
+
+// Boton para mostrar y ocultar contraseña
+export const mostrarYocultarClave = (boton, idInput) => {
+  const botonContraseña = document.getElementById(boton);
+  const clave = document.querySelector(`input[id=${idInput}]`);
+  botonContraseña.addEventListener('click', () => {
+    const type = clave.getAttribute('type') === 'password' ? 'text' : 'password';
+    clave.setAttribute('type', type);
+    botonContraseña.classList.toggle('ph-eye');
+    botonContraseña.classList.toggle('ph-eye-closed');
+  });
 };

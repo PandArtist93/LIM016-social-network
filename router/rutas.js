@@ -1,28 +1,26 @@
 import { componentes } from '../lib/index.js';
-import { forms1, registroCorreo } from '../componentes/formulariosHome.js';
-import { forms2, inicioSesion } from '../componentes/inicioSesion.js';
+import { formRegistros, registroCorreo } from '../componentes/registro.js';
+import { formInicioSesion, inicioSesion } from '../componentes/inicioSesion.js';
 import { divMuro } from '../componentes/muro.js';
-import { googleInicioSesion } from '../firebase/funcionesAuth.js';
+import { cerrarSesion } from '../componentes/cerrarSesion.js';
+import { auth } from '../firebase/funcionesAuth.js';
 
 export const vistasPantalla = () => {
   const main = document.getElementById('main');
   main.innerHTML = '';
   switch (window.location.hash.toLowerCase()) {
-    case '': 
-    case '#/': 
-    case '#/inicio':
-      main.appendChild(componentes.fondoHome(forms2.inicioSesion()));
-      inicioSesion('correoIngreso', 'claveIngreso', 'formIngreso');
-      const iniciarSesionGoogle = document.getElementById("googleSignIn");
-      console.log(iniciarSesionGoogle);
-      iniciarSesionGoogle.addEventListener("click", googleInicioSesion);
+    case '': case '#/': case '#/inicio':
+      //console.log(auth);
+      main.appendChild(componentes.fondoHome(formInicioSesion()));
+      inicioSesion('formIngreso', 'ubicacionModal');
       break;
     case '#/registro':
-      main.appendChild(componentes.fondoHome(forms1.registro()));
-      registroCorreo('usuarioRegistro', 'correoRegistro', 'claveRegistro', 'formRegistro');
+      main.appendChild(componentes.fondoHome(formRegistros()));
+      registroCorreo('usuarioRegistro', 'formRegistro', 'ubicacionModal');
       break;
     case '#/artmuro':
       main.innerHTML = divMuro;
+      cerrarSesion();
       break;
     default:
       break;

@@ -1,23 +1,19 @@
 /* eslint-disable import/no-unresolved */
 import {
   getAuth,
-  signInWithPopup,
+  signOut,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-  GoogleAuthProvider,
-  sendPasswordResetEmail,
+  sendEmailVerification,
+  signInWithPopup,
 } from 'https://www.gstatic.com/firebasejs/9.5.0/firebase-auth.js';
 import { app } from './config.js';
+export const auth = getAuth(app);
 
 // Crea un usuario con correo y contraseña
 export const registroUsuario = (correo, contraseña) => {
   const auth = getAuth(app);
-  return createUserWithEmailAndPassword(auth, correo, contraseña)
-  .then((userCredential) => {
-    // Signed in
-    const user = userCredential.user;
-    // ...
-  });
+  return createUserWithEmailAndPassword(auth, correo, contraseña);
 };
 
 // Ingreso de usuario con  correo y contraseña
@@ -27,46 +23,36 @@ export const inicioSesionUsuario = (correo, contraseña) => {
 };
 
 // Ingreso del usuario con cuenta de Google
-export const googleInicioSesion = () => {
-  const proveedorGoogle = new GoogleAuthProvider();
+export const googleInicioSesion = (proveedor) => {
   const auth = getAuth(app);
-  signInWithPopup(auth, proveedorGoogle)
-    .then((result) => {
-    // This gives you a Google Access Token.
-    const credential = GoogleAuthProvider.credentialFromResult(result);
-    const token = credential.accessToken;
-    const ubicacionModalExito = document.getElementById("ubicacionModalExito");        
-    ubicacionModalExito.innerHTML = modalExitoMensaje.modalExito();
-    console.log(token);
-    // The signed-in user info.
-    const user = result.user;
-    console.log(user);
-  });
+  return signInWithPopup(auth, proveedor);
 };
 
+// Ingreso del usuario con cuenta de Facebook
+export const facebookInicioSesion = (proveedor) => {
+  const auth = getAuth(app);
+  return signInWithPopup(auth, proveedor);
+};
 
-
-const modalExitoMensaje = {
-  modalExito: () => {
-    const exitoMensaje = `
-      <div class= "modalExito" id="modalExito">
-      <i class="fas fa-check-circle" ></i>
-        <p>Inicio de Sesión exitoso!</p>
-      </div>
-    `
-    return exitoMensaje;
-  }
+// Cerrar Sesion del usuario
+export const cierreSesionUsuario = () => {
+  const auth = getAuth(app);
+  return signOut(auth);
 };
 
 //
-export const envioClaveRecuperacion = (correo) => {
+/* export const envioClaveRecuperacion = (correo) => {
   const auth = getAuth(app);
   return sendPasswordResetEmail(auth, correo);
 };
+ */
+//
+export const envioCorreoVerificacion = () => {
+  const auth = getAuth(app);
+  return sendEmailVerification(auth.currentUser);
+};
 
 //
-/* export const envioCorreoVerificacion= () => firebase.auth().currentUser.sendEmailVerification();
-
-//
-export const onAuthStateChanged = (callback) => firebase.auth().onAuthStateChanged(callback);
+/* export const onAuthStateChanged = (callback) => firebase.auth().onAuthStateChanged(callback);
 export const signOut = () => firebase.auth().signOut(); */
+
