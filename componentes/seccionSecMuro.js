@@ -12,17 +12,20 @@ export const seccionMuro2 = () => {
         
         <div class="tableroPost">
             <div class="usuarioPost">
+                <div class="imgUsuarioPost"><img class="imgPost"src="imagenes/ImgUsuario2.png"></div>
                 <div class="infoUsuarioPost">
-                    
+                    <div class="nombreUsuarioPost"><p>Julio Perez</p></div>
+                    <div class="descripcionUsuarioPost"><p>Voluntario en WUF</p></div>
                 </div>
-                <img>
+                <div class=""></div>
             </div>
-            <div class="estadoCompartido"></div>  
+            <div class="estadoCompartido">
+                <p>Adoptar una mascota es cambiar dos vidas: la de la mascota que al fin olvidará sus duros días sin familia y la de quien se convertirá en su dueño y tendrá días cargados de amor. Si te interesa acoger a un nuevo miembro en tu hogar, estas son algunas de las muchas opciones que encuentras para adoptar animales en Lima.</p>
+            </div>  
             <div class="botonesReaccion">
                 <img src="imagenes/heartIcono.png">
                 <img src="imagenes/comentIcono.png">
                 <img src="imagenes/compartirIcono.png">
-                <img src="imagenes/emojiIcono.png">
             </div>
         </div>
    `;

@@ -13,12 +13,21 @@ export const seccionMuro1 = () => {
                 <div class="datosUsuario">
                     <h2 class="nombreUsuario">Usuario</h2>
                     <h3 class="estadoUsuario">Amante de los animales</h3>
+                    <button class="botonAgregar"><img src="imagenes/bxs-user-plus.png">Agregar</button>
                 </div>
             </div>
         </section>         
         <section class="secCategorias">
             <h1>Explorar</h1>
-            <div>            
+            <h2>Reciente</h2>
+            <div class="links-categorias">
+                <p>#ayudacanina</p>
+                <p>#runrun</p>
+                <p>#superpet</p>
+                <p>#noCompresAdopta</p>                    
+            </div>
+            <div> 
+                <h2>Grupos</h2>        
                 <div class="categoriaUnica">
                     <img src="imagenes/refugioIcono.png" >
                     <p>Refugio</p>

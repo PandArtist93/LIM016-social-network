@@ -3,7 +3,7 @@ import { cierreActividadUsuario } from '../firebase/funcionesAuth.js';
 export const contenidoHeader = () => {
     const headerMuro = `
         <img src="imagenes/ImgUsuario.png" class="imagenUsuario">
-        <img src="imagenes/CarePets.png" >
+        <img src="imagenes/CarePets.png" class="titulo-header">
         <img src="imagenes/sign-out 1.png" id="cerrar-sesion"  >
     `;
     return headerMuro;
