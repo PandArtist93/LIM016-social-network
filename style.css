@@ -256,7 +256,7 @@ form{
     align-items: center;
     padding: 10px 10px 10px 0;
     justify-content: center; 
-    animation: slideUpLarge 4s;
+    animation: slideUpLarge 5s;
 }
 
 .modalExito{
@@ -269,7 +269,7 @@ form{
     align-items: center;
     padding: 10px 10px 10px 0;
     justify-content: center; 
-    animation: slideUpLarge 4s;
+    animation: slideUpLarge 5s;
 }
 
 .modalError i {
