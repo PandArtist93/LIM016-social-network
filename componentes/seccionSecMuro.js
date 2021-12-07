@@ -22,8 +22,8 @@ export const seccionMuro2 = () => {
                 </div>
                 <div class="estadoCompartido">
                     <div class="contenidoCompartido">
-                        <img src="imagenes/perritoFoto.png">
                         <p></p>
+                        <img src="imagenes/perritoFoto.png">
                     </div>
                 </div>  
                 <div class="botonesReaccion">
@@ -43,7 +43,6 @@ export const seccionMuro2 = () => {
                     <div class="botonGlobo"><img src="imagenes/bx-globe.png"></div>     
                 </div>
                 <div class="estadoCompartido">
-                    <img src="">
                     <p class="contenidoCompartido">Adoptar una mascota es cambiar dos vidas: la de la mascota que al fin olvidará sus duros días 
                     sin familia y la de quien se convertirá en su dueño y tendrá días cargados de amor. Si te interesa
                     acoger a un nuevo miembro en tu hogar, estas son algunas de las muchas opciones que encuentras 
@@ -56,7 +55,12 @@ export const seccionMuro2 = () => {
                     <img src="imagenes/compartirIcono.png">
                 </div>
             </div>           
-        </div>      
-    `;
+        </div>
+
+
+
+        
+       
+   `;
   return segundaSeccion;
 };

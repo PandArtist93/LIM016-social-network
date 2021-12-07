@@ -62,7 +62,7 @@ export const inicioSesion = (selectorForm, containerError) => {
           setTimeout(() => {
             const modalConfirmar = document.getElementById('modalConfirmar');
             modalConfirmar.style.display = 'none';
-          }, 5000);
+          }, 4000);
         }
       })
       .catch((error) => {
@@ -71,13 +71,13 @@ export const inicioSesion = (selectorForm, containerError) => {
           setTimeout(() => {
             const modalDatosInvalidos = document.getElementById('modalDatosInvalidos');
             modalDatosInvalidos.style.display = 'none';
-          }, 5000);
+          }, 4000);
         } else if (error.message === 'Firebase: Error (auth/user-not-found).') {
           ubicacionModal.innerHTML = modalInicioSesion.usuarioInvalido();
           setTimeout(() => {
             const modalUsuarioInvalido = document.getElementById('modalUsuarioInvalido');
             modalUsuarioInvalido.style.display = 'none';
-          }, 5000);
+          }, 4000);
         } else {
           ubicacionModal.textContent = 'Ocurrió un error';
         }
