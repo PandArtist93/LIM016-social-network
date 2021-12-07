@@ -25,6 +25,11 @@ export const formRegistros = () => {
         <i id="botonClave" class="ph-eye-closed"></i>
       </div>
 
+      <div class="seccionCheckbox">
+        <input type="checkbox" id="chequearRegistro" class="chequearRegistro" required/><label>Acepto los términos 
+        y condiciones de las Polìticas de Privacidad.</label>
+      </div>
+
       <button type="submit" class="iniciarSesion">Registrate</button>
         
         <p class="texto">¿Ya tienes una cuenta? <a id="registrate" href="#/inicio"> Iniciar Sesión</a></p> 
@@ -88,9 +93,9 @@ export const registroCorreo = (nombre, selectorForm, containerError) => {
         } else {
           ubicacionModal.textContent = error.message;
         }
-        setTimeout(() => {
+        /* setTimeout(() => {
           ubicacionModal.innerHTML = '';
-        }, 1500);
+        }, 1500); */
       });
   });
 };

@@ -64,9 +64,6 @@ export const inicioSesion = (selectorForm, containerError) => {
             modalConfirmar.style.display = 'none';
           }, 4000);
         }
-        setTimeout(() => {
-          ubicacionModal.innerHTML = '';
-        }, 1500);
       })
       .catch((error) => {
         if (error.message === 'Firebase: Error (auth/invalid-email).' || error.message === 'Firebase: Error (auth/wrong-password).') {
@@ -84,9 +81,6 @@ export const inicioSesion = (selectorForm, containerError) => {
         } else {
           ubicacionModal.textContent = 'Ocurrió un error';
         }
-        setTimeout(() => {
-          ubicacionModal.innerHTML = '';
-        }, 1500);
       });
   });
 
