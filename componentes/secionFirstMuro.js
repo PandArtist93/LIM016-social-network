@@ -19,7 +19,7 @@ export const seccionMuro1 = () => {
         </section>         
         <section class="secCategorias">
             <h1>Explorar</h1>            
-            <div>         
+            <div class= "contenedorCategorias">         
                 <div class="categoriaUnica">
                     <img src="imagenes/refugioIcono.png" >
                     <p>Refugio</p>
@@ -38,7 +38,7 @@ export const seccionMuro1 = () => {
                 </div>
                 <div class="categoriaUnica">
                     <img src="imagenes/medicinasIcono.png" >
-                    <p>Medicinas</p>
+                    <p>Donaciones</p>
                 </div>           
             </div> 
         </section>

@@ -2,7 +2,7 @@
 import { registroUsuario, envioCorreoVerificacion, cierreActividadUsuario } from '../firebase/funcionesAuth.js';
 import { modalRegistro } from './errores.js';
 import { mostrarYocultarClave } from './home.js';
-import { agregarUsuario } from '../firebase/funcionesFirestore.js';
+import { agregarUsuarioConId } from '../firebase/funcionesFirestore.js';
 
 // Creacion de formulario de registro de forma dinámica
 export const formRegistros = () => {
@@ -39,13 +39,13 @@ export const formRegistros = () => {
 };
 
 // Función que se encarga del registro por correo
-export const registroCorreo = (nombre, selectorForm, containerError) => {
+export const registroCorreo = (selectorForm, containerError) => {
   mostrarYocultarClave('botonClave', 'claveRegistro');
 
   const registrarCon = document.getElementById(selectorForm);
   registrarCon.addEventListener('submit', (e) => {
     e.preventDefault();
-    const usuarioRegistro = document.getElementById(nombre).value;
+    const usuarioRegistro = document.getElementById('usuarioRegistro').value;
     const correoRegistro = document.getElementById('correoRegistro').value;
     const claveRegistro = document.getElementById('claveRegistro').value;
     const ubicacionModal = document.getElementById(containerError);
@@ -53,16 +53,14 @@ export const registroCorreo = (nombre, selectorForm, containerError) => {
     registroUsuario(correoRegistro, claveRegistro)
       .then((userCredential) => {
         const user = userCredential.user;
-        if (!user.emailVerified) {
-          envioCorreoVerificacion().then(() => {
-            ubicacionModal.innerHTML = modalRegistro.exito();
-            setTimeout(() => {
-              const modalExito = document.getElementById('modalExito');
-              modalExito.style.display = 'none';
-            }, 5000);
-          });
-        }
-        agregarUsuario(usuarioRegistro, correoRegistro, claveRegistro);
+        envioCorreoVerificacion().then(() => {
+          agregarUsuarioConId(usuarioRegistro, correoRegistro, claveRegistro, user.uid);
+        });
+        ubicacionModal.innerHTML = modalRegistro.exito();
+        setTimeout(() => {
+          const modalExito = document.getElementById('modalExito');
+          modalExito.style.display = 'none';
+        }, 5000);
         cierreActividadUsuario();
       })
       .catch((error) => {

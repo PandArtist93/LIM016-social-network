@@ -16,7 +16,7 @@ export const vistasPantalla = () => {
 
     case '#/registro':
       main.appendChild(componentes.fondoHome(formRegistros()));
-      registroCorreo('usuarioRegistro', 'formRegistro', 'ubicacionModal');
+      registroCorreo('formRegistro', 'ubicacionModal');
       break;
 
     case '#/artmuro':
@@ -26,7 +26,7 @@ export const vistasPantalla = () => {
       break;
 
     default:
-      main.innerHTML = 'paginaNo encontrada';
+      main.innerHTML = 'Página No Encontrada';
       break;
   }
 };

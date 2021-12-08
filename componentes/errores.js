@@ -16,7 +16,7 @@ export const modalRegistro = {
     const exitoMensaje = `
       <div class= "modalError" id="modalCorreoExistente">
         <i class="fas fa-check-circle"></i>
-        <p>Ya tienes un cuenta existente.</p>
+        <p>Ya tienes una cuenta existente.</p>
       </div>
     `;
     return exitoMensaje;
@@ -36,7 +36,7 @@ export const modalRegistro = {
     const exitoMensaje = `
       <div class= "modalExito" id="modalExito">
         <i class="fas fa-check-circle"></i>
-        <p>Revisa tu correo elétronico para confirmar registro.</p>
+        <p>Revisa tu correo electrónico para confirmar registro.</p>
       </div>
     `;
     return exitoMensaje;
