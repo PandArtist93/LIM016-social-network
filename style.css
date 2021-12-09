@@ -327,8 +327,8 @@ header{
 
 #cerrar-sesion{
     cursor: pointer;
-    width: 33px;
-    height: 33px;
+    width: 28px;
+    height: 28px;
 }
 
 .imagenUsuario{
@@ -337,8 +337,8 @@ header{
 }
 
 .titulo-header{
-    width: 35%;
-    height: 60%;
+    width: 25%;
+    height: 50%;
 }
 
 /*------------------------------------------------------*/
@@ -477,6 +477,10 @@ footer{
     display: flex;
     padding: 1% 0;
     align-items: center;
+}
+
+.contenedorCategorias a:active{
+    background-color: #E3CF98;
 }
 
 .categoriaUnica img{
@@ -657,7 +661,9 @@ footer{
     position:fixed;
     bottom: 0;
     background-color: #F2EEE3;
-    border: solid 1px #844124;
+    /* border: solid 1px #844124; */
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.35);
+    border-radius: 10px 10px 0 0;
     width: 100%;    
     height: 60px;
     align-items: center;
@@ -717,7 +723,11 @@ footer{
 @media screen and (max-width:768px){
     .titulo-header{
         width: 25%;
-        height: 60%;
+        height: 40%;
+    }
+    #cerrar-sesion{
+        width: 28px;
+        height: 28px;
     }
     .enlacePerfil{
         display: none;
