@@ -653,10 +653,44 @@ footer{
 /*--------------------barraNavegacionInferior------------------*/
 .barraNavegacionInferior{
     display: none;
+    z-index: 50;
+    position:fixed;
+    bottom: 0;
+    background-color: #F2EEE3;
+    border: solid 1px #844124;
+    width: 100%;    
+    height: 60px;
+    align-items: center;
 }
 
+.barraNavegacionInferior ul{
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.barraNavegacionInferior ul li{
+    list-style: none;
+    height: 100%;
+    align-items: center;
+}
+
+.list{
+    display: flex;
+}
+
+.icon img{
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+}
 /*-------------------media query--------------------------------*/
 @media screen and (max-width:860px){
+    .item3{
+        padding-bottom: 60px;
+    }
     .botonAgregar{
         font-size: 12px;
         font-weight: 600;
@@ -703,5 +737,8 @@ footer{
     .tableroCompartir, .tableroPost{
         margin: 3vh 7.5%;       
     }
+    .barraNavegacionInferior{
+        display: block;
+    }
 }
-    
+ 

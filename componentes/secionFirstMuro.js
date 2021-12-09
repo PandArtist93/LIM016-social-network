@@ -22,6 +22,10 @@ export const seccionMuro1 = () => {
             <div class= "contenedorCategorias">         
                 <div class="categoriaUnica">
                     <img src="imagenes/refugioIcono.png" >
+                    <p>Principal</p>
+                </div>
+                <div class="categoriaUnica">
+                    <img src="imagenes/iconoRefugioMascotas.png" >
                     <p>Refugio</p>
                 </div>
                 <div class="categoriaUnica">
@@ -41,7 +45,7 @@ export const seccionMuro1 = () => {
                     <p>Donaciones</p>
                 </div>           
             </div> 
-        </section>
+        </section>       
     `;
   return primeraSeccion;
 };
