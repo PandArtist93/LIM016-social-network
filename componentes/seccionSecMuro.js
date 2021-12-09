@@ -5,7 +5,15 @@ export const seccionMuro2 = () => {
           <div class="tableroCompartir">
               <input type="text" placeholder="¿Qué quieres reportar?">
               <div class="botones">
-                  <button class="botonCompartirImagen"><img src="imagenes/botonCompartirImagen.png"></button>    
+                  <button class="botonCompartirImagen"><img src="imagenes/botonCompartirImagen.png"></button>  
+                  <select name="Grupo" id="Grupo" class="Grupo">
+                    <option value="value1">Refugios</option>
+                    <option value="value2" selected>Reportar perdidos</option>
+                    <option value="value3">Adoptar</option>
+                    <option value="value4">Lugares</option>
+                    <option value="value5">Donaciones</option>
+                    <option value="value6">Ninguna</option>
+                  </select>  
                   <button class="botonCompartir">Compartir</button>                            
               </div>                  
           </div>
@@ -18,7 +26,7 @@ export const seccionMuro2 = () => {
                           <div class="nombreUsuarioPost"><p>María Casas</p><img src="imagenes/bxs-user-plus 2.png"></div>
                           <div class="descripcionUsuarioPost"><p>catlover</p></div>                                  
                       </div>
-                      <div class="botonGlobo"><img src="imagenes/bx-globe.png"></div>     
+                      <div class="botonPuntosHorizontales"><img src="imagenes/bx-borra-editar.png"></div>     
                   </div>
                   <div class="estadoCompartido">
                       <div class="contenidoCompartido">
@@ -40,7 +48,7 @@ export const seccionMuro2 = () => {
                           <div class="nombreUsuarioPost"><p>Julio Perez</p><img src="imagenes/bxs-user-plus 2.png"></div>
                           <div class="descripcionUsuarioPost"><p>Voluntario en WUF</p></div>                                  
                       </div>
-                      <div class="botonGlobo"><img src="imagenes/bx-globe.png"></div>     
+                      <div class="botonPuntosHorizontales"><img src="imagenes/bx-borra-editar.png"></div>     
                   </div>
                   <div class="estadoCompartido">
                       <p class="contenidoCompartido">Adoptar una mascota es cambiar dos vidas: la de la mascota que al fin olvidará sus duros días 
