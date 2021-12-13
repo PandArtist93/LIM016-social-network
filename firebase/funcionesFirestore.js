@@ -2,6 +2,7 @@ import {
   getFirestore,
   collection,
   getDocs,
+  getDoc,
   doc,
   setDoc,
 // eslint-disable-next-line import/no-unresolved
@@ -10,7 +11,7 @@ import { app } from './config.js';
 
 // inicializa el firestore
 const db = getFirestore(app);
-// referenciando la coleeción segun su nombre
+// referenciando la colección segun su nombre
 const colRef = collection(db, 'usuarios');
 // Obtener datos de la colección como array de objetos
 getDocs(colRef)
@@ -19,6 +20,7 @@ getDocs(colRef)
     snapshot.docs.forEach((docs) => {
       usuarios.push({ ...docs.data(), id: docs.id });
     });
+    // eslint-disable-next-line no-console
     console.log(usuarios);
   });
 // agregar usuario a Firestore
@@ -29,9 +31,27 @@ export const agregarUsuarioConId = async (nuevoUsuario, nuevoCorreo, nuevaContra
   const docRef = await setDoc(colRefId, {
     username: nuevoUsuario,
     correo: nuevoCorreo,
-    clave: nuevaContraseña,
   }).then(() => {
-    // eslint-disable-next-line no-alert
-    alert('agregado exito');
+    /* alert('agregado exito'); */
   });
 };
+
+/*-------------- Funcionalidad del perfil de usuario ------------------------*/
+export const getCurrentUser = (userId) => {
+  const colRefId = doc(db, 'usuarios', userId);
+  return getDoc(colRefId);
+}
+
+export const actualizarPerfil = (userId) => {
+  const colRefId = doc(db, 'usuarios', userId);
+  setDoc(colRefId, {
+    name: "Marielena",
+    ubicacion: "Lima",
+    descripcion: "pruebas de la vida",
+  }, { merge: true }).then(() => {
+    //alert('actualizado con exito');
+    //aca tenfria que actualizarlo si funciono el update en firestore
+  });
+};
+
+

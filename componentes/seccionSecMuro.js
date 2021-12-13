@@ -19,7 +19,7 @@ export const seccionMuro2 = () => {
                     </a>
                 </li>
                 <li class="list">
-                    <a>
+                    <a href="#/artperfil">
                         <span class="icon">
                             <img src="imagenes/imgUsuario.png">
                         </span>                        
@@ -38,7 +38,7 @@ export const seccionMuro2 = () => {
                 <option value="value3">Adoptar</option>
                 <option value="value4">Lugares</option>
                 <option value="value5">Donaciones</option>
-                <option value="value6"></option>
+                <option value="value6">Principal</option>
                 </select>  
                 <button class="botonCompartir">Compartir</button>                            
             </div>                  
@@ -52,7 +52,15 @@ export const seccionMuro2 = () => {
                         <div class="nombreUsuarioPost"><p>María Casas</p><img src="imagenes/bxs-user-plus 2.png"></div>
                         <div class="descripcionUsuarioPost"><p>catlover</p></div>                                  
                     </div>
-                    <div class="botonPuntosHorizontales"><img src="imagenes/bx-borra-editar.png"></div>     
+                    <div class="puntosHorizontales">
+                        <figure class="puntos"></figure>
+                        <figure class="puntos middle2"></figure>
+                        <figure class="puntos"></figure>
+                        <ul class="desplegable2" id="menuListaPost">
+                            <li><a id="editar"><img src="imagenes/edit.png"><span>Editar</span></a></li>
+                            <li><a id="eliminar"><img src="imagenes/delete.png"><span>Eliminar</span></a></li>
+                        </ul>
+                    </div>    
                 </div>
                 <div class="estadoCompartido">
                     <div class="contenidoCompartido">
@@ -74,7 +82,15 @@ export const seccionMuro2 = () => {
                         <div class="nombreUsuarioPost"><p>Julio Perez</p><img src="imagenes/bxs-user-plus 2.png"></div>
                         <div class="descripcionUsuarioPost"><p>Voluntario en WUF</p></div>                                  
                     </div>
-                    <div class="botonPuntosHorizontales"><img src="imagenes/bx-borra-editar.png"></div>     
+                    <div class="puntosHorizontales">
+                        <figure class="puntos"></figure>
+                        <figure class="puntos middle2"></figure>
+                        <figure class="puntos"></figure>
+                        <ul class="desplegable2" id="menuListaPost">
+                            <li><a id="editar"><img src="imagenes/edit.png"><span>Editar</span></a></li>
+                            <li><a id="eliminar"><img src="imagenes/delete.png"><span>Eliminar</span></a></li>
+                        </ul>
+                    </div>      
                 </div>
                 <div class="estadoCompartido">
                     <p class="contenidoCompartido">Adoptar una mascota es cambiar dos vidas: la de la mascota que al fin olvidará sus duros días 
@@ -92,4 +108,17 @@ export const seccionMuro2 = () => {
         </div>  
     `;
   return segundaSeccion;
+};
+
+export const menuPuntosHorizontales = () => {
+  const puntosHorizontales = document.querySelector('.puntosHorizontales');
+  console.log(puntosHorizontales);
+  const middle2 = document.querySelector('.middle2'); 
+  const desplegable2 = document.querySelector('.desplegable2');
+  
+    puntosHorizontales.addEventListener('click', () => {
+        middle2.classList.toggle('active');        
+        desplegable2.classList.toggle('active');
+        
+    });
 };

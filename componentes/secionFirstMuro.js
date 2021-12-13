@@ -13,7 +13,6 @@ export const seccionMuro1 = () => {
                 <div class="datosUsuario">
                     <h2 class="nombreUsuario">Lucía Lopez</h2>
                     <p class="estadoUsuario">Amante de los animales</p>
-                    <button class="botonAgregar"><img src="imagenes/pencil.png">Editar Prefil</button>
                 </div>
             </div>
         </section>         

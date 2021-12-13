@@ -60,6 +60,7 @@ export const registroCorreo = (selectorForm, containerError) => {
         setTimeout(() => {
           const modalExito = document.getElementById('modalExito');
           modalExito.style.display = 'none';
+          window.location.hash = '#/inicio';
         }, 5000);
         cierreActividadUsuario();
       })
