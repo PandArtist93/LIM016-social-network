@@ -44,7 +44,7 @@ export const contenidoPerfil = () => {
                 </div>
 
                 <div class="botonesDelPerfil">
-                    <button class="botonAgregar"><img src="imagenes/pencil.png"><a href='#/arteditarperfil'>Editar Perfil</a></button>
+                    <button class="botonAgregar"><a href='#/arteditarperfil'>Editar Perfil</a></button>
                     <button class="btnInicio"><a href="#/artmuro">Volver a Inicio</a></button>
                 </div>
             </div>        

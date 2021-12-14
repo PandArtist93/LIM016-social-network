@@ -12,7 +12,7 @@ export const contenidoHeader = () => {
           <figure class="middle"></figure>
           <p class="equis"></p>
           <figure></figure>
-          <ul class="desplegable" id="menuLista">
+          <ul class="desplegable">
             <li><a id="tema"><img src="imagenes/bx-palette.png"><span>Tema</span></a></li>
             <li><a id="cerrar-sesion"><img src="imagenes/sign-out.png"><span>Cerrar Sesión</span></a></li>
           </ul>

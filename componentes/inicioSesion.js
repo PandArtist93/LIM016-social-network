@@ -17,25 +17,25 @@ export const formInicioSesion = () => {
             <form id="formIngreso">
                 <div class="seccionIngreso">
                     <input type="text" id="correoIngreso" class="datosIngreso" placeholder="Correo electrónico" required>
-                    <img src="imagenes/envelope.png">
+                    <i class="ph-envelope"></i>
                 </div>
-                
+
                 <div class="seccionIngreso">
                     <input type="password" id="claveIngreso" class="datosIngreso" placeholder="Contraseña" required>
                     <i id="botonContraseña" class="ph-eye-closed"></i>
                 </div>
-                
+
                 <button type="submit" id="botonIngresar" class="iniciarSesion">Ingresar</button>
-                            
+
                 <p class="texto">O bien ingresa con</p>
-                
+
                 <div class="logosInicio">
                     <img id="imgFacebook" src="imagenes/FacebookOriginal.png">
                     <img id="imgGoogle" src="imagenes/GoogleOriginal.png">
                 </div>
-                
+
                 <p class="texto">¿No tienes una cuenta? <a id="registrate" href="#/registro"> Regístrate</a></p> 
-            </form> 
+            </form>
         </div>`;
   return formIngreso;
 };
@@ -43,6 +43,7 @@ export const formInicioSesion = () => {
 // Función que se encarga del inicio de Sesión por correo
 export const inicioSesion = (selectorForm, containerError) => {
   mostrarYocultarClave('botonContraseña', 'claveIngreso');
+  cierreActividadUsuario();
   const iniciarCon = document.getElementById(selectorForm);
   iniciarCon.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -64,7 +65,6 @@ export const inicioSesion = (selectorForm, containerError) => {
           //sessionStorage.setItem("userSession", userdata);
           window.location.hash = '#/artmuro';
         } else {
-          cierreActividadUsuario();
           ubicacionModal.innerHTML = modalInicioSesion.confirmar();
           setTimeout(() => {
             const modalConfirmar = document.getElementById('modalConfirmar');
@@ -119,6 +119,7 @@ export const inicioSesion = (selectorForm, containerError) => {
         //console.log(email);
         
         const credential = GoogleAuthProvider.credentialFromError(error);
+        // eslint-disable-next-line no-console
         console.log(credential);
       });
   });

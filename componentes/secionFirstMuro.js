@@ -7,9 +7,7 @@ export const seccionMuro1 = () => {
                 <img src="imagenes/ImgDelUsuario.png">
             </div>  
             <div class="contenedorPerfil">
-                <div class="ImgCentralUsuario">
-                    <img src="imagenes/ImgUsuario.png">
-                </div>
+                <img src="imagenes/ImgUsuario.png">
                 <div class="datosUsuario">
                     <h2 class="nombreUsuario">Lucía Lopez</h2>
                     <p class="estadoUsuario">Amante de los animales</p>
@@ -17,12 +15,8 @@ export const seccionMuro1 = () => {
             </div>
         </section>         
         <section class="secCategorias">
-            <h1>Explorar</h1>            
+            <h1>Grupos</h1>            
             <div class= "contenedorCategorias">         
-                <a class="categoriaUnica">
-                    <img src="imagenes/refugioIcono.png" >
-                    <p>Principal</p>
-                </a>
                 <a class="categoriaUnica">
                     <img src="imagenes/iconoRefugioMascotas.png" >
                     <p>Refugio</p>

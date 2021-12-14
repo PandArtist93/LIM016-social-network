@@ -4,7 +4,7 @@ import { formInicioSesion, inicioSesion } from '../componentes/inicioSesion.js';
 import { muro, muroPerfil, muroEditarPerfil } from '../componentes/muro.js';
 import { cerrarSesion, menuPuntosVerticales } from '../componentes/headerMuro.js';
 import { userState } from '../componentes/validaciones.js';
-import { menuPuntosHorizontales } from '../componentes/seccionSecMuro.js';
+import { menuPuntosHorizontales, publicarHome } from '../componentes/seccionSecMuro.js';
 import { btnEditarPerfil } from '../componentes/seccionEditarPerfil.js';
 
 export const vistasPantalla = () => {
@@ -27,7 +27,7 @@ export const vistasPantalla = () => {
       main.appendChild(muro());
       cerrarSesion();
       menuPuntosVerticales();
-      menuPuntosHorizontales();
+      publicarHome('formCompartir', 'container-post');
       break;
 
     case '#/artperfil':
