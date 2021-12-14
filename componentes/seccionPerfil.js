@@ -21,7 +21,7 @@ export const contenidoPerfil = () => {
                 <li class="list">
                     <a>
                         <span class="icon">
-                            <img src="imagenes/imgUsuario.png">
+                            <img src="imagenes/ImgUsuario.png">
                         </span>                        
                     </a>
                 </li>
@@ -30,11 +30,11 @@ export const contenidoPerfil = () => {
     
         <div class="fondo1">
             <div class="fondoImagenPerfil">
-                <img src="imagenes/imgDelUsuario.png">
+                <img src="imagenes/ImgDelUsuario.png">
             </div>  
             <div class="fondo2">
                 <div class="imgPerfilUsuario">
-                    <img src="imagenes/imgUsuario.png">
+                    <img src="imagenes/ImgUsuario.png">
                 </div>
                 
                 <div class="contenidoTextPerfil">
@@ -54,7 +54,7 @@ export const contenidoPerfil = () => {
             <div class="tableroPost">            
                 <div class="usuarioPost">
                     <div class="imgUsuarioPost">
-                        <img class="imgPost"src="imagenes/imgUsuario.png">
+                        <img class="imgPost"src="imagenes/ImgUsuario.png">
                     </div>
                     <div class="infoUsuarioPost">
                         <div class="nombreUsuarioPost"><p>Lucía Lopez</p><img src="imagenes/bxs-user-plus 2.png"></div>
@@ -88,7 +88,7 @@ export const contenidoPerfil = () => {
             <div class="tableroPost">            
                 <div class="usuarioPost">
                     <div class="imgUsuarioPost">
-                        <img class="imgPost"src="imagenes/imgUsuario.png">
+                        <img class="imgPost"src="imagenes/ImgUsuario.png">
                     </div>
                     <div class="infoUsuarioPost">
                         <div class="nombreUsuarioPost"><p>Lucía Lopez</p><img src="imagenes/bxs-user-plus 2.png"></div>

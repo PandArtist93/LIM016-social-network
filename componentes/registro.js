@@ -57,11 +57,11 @@ export const registroCorreo = (selectorForm, containerError) => {
           agregarUsuarioConId(usuarioRegistro, correoRegistro, claveRegistro, user.uid);
         });
         ubicacionModal.innerHTML = modalRegistro.exito();
-        setTimeout(() => {
+     /*    setTimeout(() => {
           const modalExito = document.getElementById('modalExito');
           modalExito.style.display = 'none';
           window.location.hash = '#/inicio';
-        }, 5000);
+        }, 5000); */
         cierreActividadUsuario();
       })
       .catch((error) => {

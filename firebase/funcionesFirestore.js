@@ -8,6 +8,7 @@ import {
 // eslint-disable-next-line import/no-unresolved
 } from 'https://www.gstatic.com/firebasejs/9.5.0/firebase-firestore.js';
 import { app } from './config.js';
+import { actualizarDatosPerfil } from '../componentes/seccionEditarPerfil.js';
 
 // inicializa el firestore
 const db = getFirestore(app);
@@ -42,15 +43,20 @@ export const getCurrentUser = (userId) => {
   return getDoc(colRefId);
 }
 
-export const actualizarPerfil = (userId) => {
+export const actualizarPerfil = (userId, name, ubicacion, descripcion) => {
   const colRefId = doc(db, 'usuarios', userId);
   setDoc(colRefId, {
-    name: "Marielena",
-    ubicacion: "Lima",
-    descripcion: "pruebas de la vida",
-  }, { merge: true }).then(() => {
-    //alert('actualizado con exito');
-    //aca tenfria que actualizarlo si funciono el update en firestore
+    name: name,
+    ubicacion: ubicacion,
+    descripcion: descripcion,
+  }, { merge: true })
+  .then(() => {
+    const userData = JSON.parse(sessionStorage.userSession);
+    userData.name = name;
+    userData.ubicacion = ubicacion;
+    userData.descripcion = descripcion;
+    sessionStorage.setItem("userSession", JSON.stringify(userData));   
+    actualizarDatosPerfil(name, ubicacion, descripcion);
   });
 };
 
