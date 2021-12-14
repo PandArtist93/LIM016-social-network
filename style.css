@@ -106,11 +106,6 @@ form{
     color: #FFFF;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
-.iniciarSesion A{
-    color: #FFFF;
-    text-decoration: none;
-    
-}
 .logosInicio{
     width: 20%;
     display: flex;
@@ -388,7 +383,7 @@ footer{
 .grid-container{
     display: grid;
     background-color: #F2EEE3;
-    grid-template-columns: 3fr 4fr;
+    grid-template-columns: 1fr 2fr;
     border:transparent;  
 }
 /*--------------------características de la sección izquierda-----------------*/
