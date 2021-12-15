@@ -125,7 +125,6 @@ export const publicarHome = (formCompartir, containerPost) => {
 
 export const menuPuntosHorizontales = () => {
   const puntosHorizontales = document.querySelector('.puntosHorizontales');
-  console.log(puntosHorizontales);
   const middle2 = document.querySelector('.middle2'); 
   const desplegable2 = document.querySelector('.desplegable2');
   

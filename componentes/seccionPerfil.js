@@ -50,7 +50,7 @@ export const contenidoPerfil = () => {
             </div>        
         </div>       
 
-        <div class="seccPostUsuario">
+        <div class="seccPostUsuario" id="SeccPublicacionesUsuario">
             <div class="tableroPost">            
                 <div class="usuarioPost">
                     <div class="imgUsuarioPost">

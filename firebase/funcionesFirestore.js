@@ -51,7 +51,7 @@ export const obtenerPostsbyId = async (byId) => {
 };
 
 // agregar usuario a Firestore
-export const agregarUsuarioConId = async (usuarioRegistro, correoRegistro, id) => {
+export const agregarUsuarioConId = async (id, usuarioRegistro, correoRegistro) => {
   const colRefId = doc(db, 'usuarios', id);
   await setDoc(colRefId, {
     username: usuarioRegistro,
@@ -72,7 +72,6 @@ export const getCurrentUser = (userId) => {
   const colRefId = doc(db, 'usuarios', userId);
   return getDoc(colRefId);
 }
-
 export const actualizarPerfil = (userId, name, ubicacion, descripcion) => {
   const colRefId = doc(db, 'usuarios', userId);
   setDoc(colRefId, {

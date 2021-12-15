@@ -39,7 +39,6 @@ export const vistasPantalla = () => {
       break;
 
     case '#/arteditarperfil':
-      console.log(muroEditarPerfil());
       userState();
       main.appendChild(muroEditarPerfil());      
       cerrarSesion();

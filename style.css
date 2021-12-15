@@ -383,13 +383,24 @@ figure{
     flex-wrap: wrap;
 }
 .puntosVerticales ul, .puntosHorizontales ul{
+    display: flex;
+    flex-direction: column;
     list-style: none;
-    width: 150px;
-    padding: 10px;
     border-radius: 10px;
     background: #E5DCC3;
     margin-right: 10%;
     text-decoration: none;
+    justify-content: space-around;
+    align-items: flex-start;
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.35);
+}
+.puntosVerticales ul{
+    width: 150px;
+    padding: 8px;
+}
+.puntosHorizontales ul{
+    width: 120px;
+    padding: 9px;
 }
 .nombreUsuarioPost img{
     width: 30px;
@@ -440,20 +451,30 @@ figure{
 .desplegable li a, .desplegable2 li a{
     display: flex;
     align-items: center;
-    justify-content: left;
+    justify-content: center;
     color: #844124;
     font-weight: 600;
 }
 .desplegable li a img, .desplegable2 li a img{
     margin-right: 5px;
 }
+#cerrar-sesion img{
+    margin-left: 5px;
+}
 .desplegable, .desplegable2{
     position: absolute;
-    right: 0;
-    top: 2em;
+    height: 100px;
     transition: all 0.25s ease-out;
     transform: scale(0);
     transform-origin: 100% 0;
+}
+.desplegable{
+    right: -20px;
+    top: 3em;
+}
+.desplegable2{
+    right: -40px;
+    top: 2em;
 }
 .desplegable.active, .desplegable2.active {
     transform: scale(1);
@@ -501,10 +522,11 @@ figure{
     border-color:transparent;
     color: white;
     overflow: hidden;
+    font-size: 17px;
     font-weight: 600;
     width: 25%;
     min-width: 95px;
-    height: 4vh;
+    height: 6vh;
     cursor: pointer;
 }
 .tableroCompartir select{
@@ -513,10 +535,11 @@ figure{
     border-color:transparent;
     box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.35);
     color: white;
-    width: 25%;
+    width: 29%;
+    font-size: 17px;
     font-weight: 600;
     min-width: 95px;
-    height: 4vh;
+    height: 6vh;
     cursor: pointer;
     outline: none;
 }
@@ -534,7 +557,7 @@ figure{
     padding: 0 3%;
     height: auto;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
 }
 .imgUsuarioPost{
     display: flex;
@@ -644,11 +667,11 @@ figure{
         font-weight: 600;
     }
     .botonCompartir{
-        font-size: 12px;
+        font-size: 15px;
         font-weight: 600;
     }
    .tableroCompartir select{
-        font-size: 12px;
+        font-size: 15px;
         font-weight: 600;
     }
     .estadoUsuario{
@@ -735,7 +758,7 @@ figure{
 .fondo2{
     width: 100%;
     height: 25vh;
-    display: flex;
+    display: flex;  
     align-content: center;
     align-items: center;
     padding: 1% 7%;    
@@ -771,7 +794,7 @@ figure{
     text-decoration: none;
     color: white;
     font-weight: 600;
-    font-size: 14px;
+    font-size: 15px;
 }
 .botonesDelPerfil .btnInicio, .botonesDelPerfil .botonAgregar, .guardarCambios, .botonesFormularios .btnInicio{
     display: flex;
@@ -784,7 +807,8 @@ figure{
     width: 70%;
     min-width: 102px;
     max-width: 160px;
-    height: 4vh;
+    height: 6vh;
+    font-size: 16px;
     cursor: pointer;
     align-items: center;
     padding: 3px;
@@ -792,6 +816,7 @@ figure{
 }
 .botonesDelPerfil .botonAgregar p{
     display: inline-block;
+    font-size: 17px;
 }
 .seccPostUsuario{
     width: 70%;
@@ -803,10 +828,10 @@ figure{
     .seccPostUsuario{
         width: 85%;
     }
-    .fondo2{        
-        padding: 1% 5%;    
+    .fondo2{      
+        padding: 1% 5%;
     }
-}
+} 
 /*--------------------características de la sección Editar - perfil de usuario----------------------*/
 .fondoModal{
     display: flex;
@@ -917,7 +942,7 @@ figure{
 .botonesFormularios .guardarCambios, .botonesFormularios .btnInicio{
     color: white;
     font-weight: 600;
-    font-size: 14px;
+    font-size: 15px;
 }
 #formIngreso{
     margin-bottom: 9%;
@@ -929,7 +954,7 @@ figure{
 }
 @media screen and (max-width:768px){
     #formIngreso{
-        margin-bottom: 9vh;
+        margin-bottom: 12vh;
     }
     .botonesFormularios .btnInicio{
         display: none;
@@ -941,6 +966,16 @@ figure{
     }
     .seccionIngreso i{
         font-size: 30px;
+    }
+} 
+@media screen and (max-width:478px){
+    .nombreUsuarioPost{
+        font-size: 20px;
+        /* justify-content: end; */
+    }
+    .imgPost{
+        width: 50px;  
+        height: 50px;  
     }
 } 
 @media (max-width: 425px){ 
@@ -971,5 +1006,13 @@ figure{
     }
     .datosIngreso{
         font-size: 16px;
+    }
+}
+@media screen and (max-width: 320px){
+    .container-post{
+        min-width: 315px;
+    }
+    .tableroCompartir{
+        min-width: 315px;
     }
 }
