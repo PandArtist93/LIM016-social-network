@@ -1,14 +1,13 @@
 /* eslint-disable max-len */
-/* eslint-disable import/no-unresolved */
 import {
+  auth,
   onAuthStateChanged,
   signOut,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   sendEmailVerification,
   signInWithPopup,
-} from 'https://www.gstatic.com/firebasejs/9.5.0/firebase-auth.js';
-import { auth } from './config.js';
+} from './config.js';
 
 // Crea un usuario con correo y contraseña
 export const registroUsuario = (correo, contraseña) => createUserWithEmailAndPassword(auth, correo, contraseña);
@@ -35,7 +34,3 @@ export const cierreActividadUsuario = () => signOut(auth);
 export const envioCorreoVerificacion = () => sendEmailVerification(auth.currentUser);
 
 export const estadoAuthUsuario = (callback) => onAuthStateChanged(auth, callback);
-
-export {
-  signInWithEmailAndPassword,
-};

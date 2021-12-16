@@ -4,7 +4,7 @@ import { seccionMuro2 } from './seccionSecMuro.js';
 import { contenidoPerfil } from './seccionPerfil.js';
 import { contenidoEditarPerfil } from './seccionEditarPerfil.js';
 
-export const muro = () => {
+export const muro = (/* parametro de la seccion2 */) => {
   const articleMuro = document.createElement('article');
   articleMuro.classList.add('artMuro');
   articleMuro.setAttribute('id', 'artMuro');
@@ -16,8 +16,8 @@ export const muro = () => {
   const divSecciones = document.createElement('div');
   divSecciones.classList.add('grid-container');
   divSecciones.appendChild(seccionMuro1());
-  divSecciones.appendChild(seccionMuro2());
-  
+  divSecciones.appendChild(seccionMuro2()); // callback de la segunda seccion
+
   articleMuro.appendChild(headerMuro);
   articleMuro.appendChild(divSecciones);
   return articleMuro;
@@ -34,8 +34,8 @@ export const muroPerfil = () => {
 
   const divSeccionPerfilusuario = document.createElement('div');
   divSeccionPerfilusuario.classList.add('contenedor-perfil');
-  divSeccionPerfilusuario.appendChild(contenidoPerfil());  
-  
+  divSeccionPerfilusuario.appendChild(contenidoPerfil());
+
   articleMuroPerfil.appendChild(headerMuro);
   articleMuroPerfil.appendChild(divSeccionPerfilusuario);
 
@@ -53,8 +53,8 @@ export const muroEditarPerfil = () => {
 
   const divSeccionEditarPerfilusuario = document.createElement('div');
   divSeccionEditarPerfilusuario.classList.add('contenedor-editarPerfil');
-  divSeccionEditarPerfilusuario.appendChild(contenidoEditarPerfil());  
-  
+  divSeccionEditarPerfilusuario.appendChild(contenidoEditarPerfil());
+
   articleMuroEditarPerfil.appendChild(headerMuro);
   articleMuroEditarPerfil.appendChild(divSeccionEditarPerfilusuario);
 

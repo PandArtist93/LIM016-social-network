@@ -1,7 +1,6 @@
 import {
-  subirEstadoDeUser, obtenerPosts, obtenerUsuario, obtenerPostsbyId, obtenerUsuarioById,
+  obtenerPosts, obtenerUsuarioById, obtenerPostById, subirPostA,
 } from '../firebase/funcionesFirestore.js';
-import { estadoAuthUsuario } from '../firebase/funcionesAuth.js';
 
 const subirContainer = (creadorPost, apodoUser, postTxt, srcImagenPost) => {
   const divTablero = document.createElement('div');
@@ -13,7 +12,7 @@ const subirContainer = (creadorPost, apodoUser, postTxt, srcImagenPost) => {
         <div class="infoUsuarioPost">
             <div class="nombreUsuarioPost"><p>${creadorPost}</p><img src="imagenes/bxs-user-plus 2.png"></div>
             <div class="descripcionUsuarioPost"><p>${apodoUser}</p></div>
-        </div>     
+        </div>
     </div>
     <div class="estadoCompartido">
         <div class="contenidoCompartido">
@@ -32,13 +31,11 @@ const subirContainer = (creadorPost, apodoUser, postTxt, srcImagenPost) => {
 
 const rellenarHome = async (conteinerPost) => {
   const datosPost = await obtenerPosts();
-  const datosUsuario = await obtenerUsuario();
   datosPost.forEach((doc) => {
-    // doc.data() is never undefined for query doc snapshots
-    // console.log(`${doc.id}=>${doc.data()}`);
-    conteinerPost.prepend(subirContainer('usuarioPrueba', 'prueba', doc.data().publicacion, ''));
+    obtenerUsuarioById(doc.usuarioId).then((datosUsuario) => {
+      conteinerPost.prepend(subirContainer(datosUsuario.username, datosUsuario.descripcion, doc.publicacion, ''));
+    });
   });
-  console.log(datosUsuario);
 };
 
 export const seccionMuro2 = () => {
@@ -102,35 +99,29 @@ export const seccionMuro2 = () => {
   return segundaSeccion;
 };
 
-export const publicarHome = (formCompartir, containerPost) => {
+export const creacionPost = (formCompartir, containerPost) => {
   const divCompartir = document.getElementById(formCompartir);
   const containerPosts = document.getElementById(containerPost);
-  divCompartir.addEventListener('submit', (e) => {
+  divCompartir.addEventListener('submit', async (e) => {
     e.preventDefault();
     const inputCompartir = document.getElementById('inputCompartir').value;
-    // const datosUsuario = await obtenerUsuario();
-    // const datosPost = await obtenerPosts();
-    estadoAuthUsuario((user) => {
-      if (user) {
-        subirEstadoDeUser(user.uid, inputCompartir).then(async (doc) => {
-          const postsById = await obtenerPostsbyId(doc.id);
-          const userById = await obtenerUsuarioById(user.uid);
-          containerPosts.prepend(subirContainer(userById.data().username, 'prueba', postsById.data().publicacion, ''));
-        });
-      }
+    const userData = JSON.parse(sessionStorage.userSession);
+    await subirPostA('home', userData.id, inputCompartir).then((doc) => {
+      obtenerPostById(doc.id).then((postsById) => {
+        containerPosts.prepend(subirContainer(userData.username, userData.descripcion, postsById.publicacion, ''));
+      });
     });
     divCompartir.reset();
   });
 };
 
-export const menuPuntosHorizontales = () => {
+/* export const menuPuntosHorizontales = () => {
   const puntosHorizontales = document.querySelector('.puntosHorizontales');
-  const middle2 = document.querySelector('.middle2'); 
+  const middle2 = document.querySelector('.middle2');
   const desplegable2 = document.querySelector('.desplegable2');
-  
-    puntosHorizontales.addEventListener('click', () => {
-        middle2.classList.toggle('active');        
-        desplegable2.classList.toggle('active');
-        
-    });
+  puntosHorizontales.addEventListener('click', () => {
+    middle2.classList.toggle('active');
+    desplegable2.classList.toggle('active');
+  });
 };
+ */

@@ -1,6 +1,11 @@
+import { validateSessionStorage } from './validaciones.js';
+
 export const seccionMuro1 = () => {
   const primeraSeccion = document.createElement('section');
   primeraSeccion.classList.add('item2');
+
+  const userData = validateSessionStorage();
+  //const userData = JSON.parse(sessionStorage.userSession);
   primeraSeccion.innerHTML = `
         <section class="secUsuario">
             <div class="contenedorPortada">
@@ -9,8 +14,9 @@ export const seccionMuro1 = () => {
             <div class="contenedorPerfil">
                 <img src="imagenes/ImgUsuario.png">
                 <div class="datosUsuario">
-                    <h2 class="nombreUsuario">Lucía Lopez</h2>
-                    <p class="estadoUsuario">Amante de los animales</p>
+                    <h2 class="nombreUsuario">${userData.username}</h2>
+                    <p class="correoUsuario">${userData.correo}</p>
+                    <p class="estadoUsuario">${userData.descripcion}</p>
                 </div>
             </div>
         </section>         

@@ -2,7 +2,7 @@
 import { registroUsuario, envioCorreoVerificacion } from '../firebase/funcionesAuth.js';
 import { modalRegistro } from './errores.js';
 import { mostrarYocultarClave } from './home.js';
-import { agregarUsuarioConId } from '../firebase/funcionesFirestore.js';
+import { agregarDataUserFS } from '../firebase/funcionesFirestore.js';
 
 // Creacion de formulario de registro de forma dinámica
 export const formRegistros = () => {
@@ -19,7 +19,7 @@ export const formRegistros = () => {
         <input type="text" id="correoRegistro" class="datosIngreso" placeholder="Correo electrónico" required>
         <i class="ph-envelope"></i>
       </div>
-      
+
       <div class="seccionIngreso">
         <input type="password" id="claveRegistro" class="datosIngreso" placeholder="Contraseña" required>
         <i id="botonClave" class="ph-eye-closed"></i>
@@ -31,7 +31,7 @@ export const formRegistros = () => {
       </div>
 
       <button type="submit" class="iniciarSesion">Registrate</button>
-        
+
         <p class="texto">¿Ya tienes una cuenta? <a id="registrate" href="#/inicio"> Iniciar Sesión</a></p> 
       </form>
     </div>`;
@@ -53,7 +53,7 @@ export const registroCorreo = (selectorForm, containerError) => {
       .then((userCredential) => {
         const user = userCredential.user;
         envioCorreoVerificacion().then(() => {
-          agregarUsuarioConId(usuarioRegistro, correoRegistro, user.uid);
+          agregarDataUserFS(user.uid, usuarioRegistro, correoRegistro, '', '', '');
         });
         ubicacionModal.innerHTML = modalRegistro.exito();
         setTimeout(() => {
@@ -61,7 +61,6 @@ export const registroCorreo = (selectorForm, containerError) => {
           modalExito.style.display = 'none';
           window.location.hash = '#/inicio';
         }, 5000);
-        //cierreActividadUsuario();
       })
       .catch((error) => {
         if (error.message === 'Firebase: Error (auth/invalid-email).') {
