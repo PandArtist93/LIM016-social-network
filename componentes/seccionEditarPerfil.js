@@ -1,5 +1,5 @@
 // eslint-disable-next-line import/no-cycle
-import { actualizarPerfil } from '../firebase/funcionesFirestore.js';
+import { actualizarPerfil, actualizarDatosPost } from '../firebase/funcionesFirestore.js';
 import { validateSessionStorage } from './validaciones.js';
 
 export const contenidoEditarPerfil = () => {
@@ -59,22 +59,22 @@ export const contenidoEditarPerfil = () => {
                         <form id="formIngreso">
                             <div class="cajaImputDatos">
                                 <p class="textSeccActualizacion" id="">Usuario:</p>
-                                <input type="text" id="actualizacionUsuario" class="datosParaActualizar">
+                                <input type="text" id="actualizacionUsuario" class="datosParaActualizar" autocapitalize="sentence">
                             </div>
 
                             <div class="cajaImputDatos">
                                 <p class="textSeccActualizacion" id="">Nombre:</p>
-                                <input type="text" id="actualizacionNombre" class="datosParaActualizar">
+                                <input type="text" id="actualizacionNombre" class="datosParaActualizar" autocapitalize="sentence">
                             </div>
 
                             <div class="cajaImputDatos">
                                 <p class="textSeccActualizacion" id="">Estado:</p>
-                                <input type="text" id="actualizacionEstado" class="datosParaActualizar">
+                                <input type="text" id="actualizacionEstado" class="datosParaActualizar" autocapitalize="sentence">
                             </div>
 
                             <div class="cajaImputDatos">
                                 <p class="textSeccActualizacion">Ubicación:</p>
-                                <input type="text" id="actualizacionUbicacion" class="datosParaActualizar">
+                                <input type="text" id="actualizacionUbicacion" class="datosParaActualizar" autocapitalize="sentence">
                             </div>
                             <div class="botonesFormularios">
                                 <button type="submit" id="guardarCambios" class="guardarCambios">Guardar Cambios</button>  
@@ -108,6 +108,7 @@ export const btnEditarPerfil = () => {
         const inputDescripcionActualizado = document.getElementById("actualizacionEstado").value;
         const inputUbicacionActualizado = document.getElementById("actualizacionUbicacion").value;
         const userData = JSON.parse(sessionStorage.userSession);
+        actualizarDatosPost(userData.id, inputusuarioActualizado, inputDescripcionActualizado);
         actualizarPerfil(userData.id, inputNombreActualizado, inputusuarioActualizado,  inputUbicacionActualizado, inputDescripcionActualizado)
         .then(() => {
             const userData = JSON.parse(sessionStorage.userSession);
@@ -119,4 +120,13 @@ export const btnEditarPerfil = () => {
             actualizarDatosPerfil(inputusuarioActualizado, inputNombreActualizado, inputUbicacionActualizado, inputDescripcionActualizado);
         });
     });
-}
+};
+
+/* export const actualizarDatosPerfil = (name, ubicacion, descripcion) => {
+  const nombreDelPerfil = document.getElementById('nombreDelPerfil');
+  const ubicacionDelPerfil = document.getElementById('ubicacionDelPerfil');
+  const descripcionDelPerfil = document.getElementById('descripcionDelPerfil');
+  nombreDelPerfil.innerHTML = name;
+  ubicacionDelPerfil.innerHTML = ubicacion;
+  descripcionDelPerfil.innerHTML = descripcion;
+}; */

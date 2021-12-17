@@ -1,4 +1,4 @@
-import { obtenerPosts, obtenerUsuarioById, obtenerUserPosts } from '../firebase/funcionesFirestore.js';
+import { obtenerUserPosts, eliminarPost } from '../firebase/funcionesFirestore.js';
 import { validateSessionStorage } from './validaciones.js';
 /* export const contenidoPerfil = () => {
   const perfilSeccion = document.createElement('section');
@@ -139,7 +139,7 @@ const subirContainer = (idPost, creadorPost, apodoUser, postTxt, srcImagenPost) 
             <div class="nombreUsuarioPost"><p>${creadorPost}</p><img src="imagenes/bxs-user-plus 2.png"></div>
             <div class="descripcionUsuarioPost"><p>${apodoUser}</p></div>            
         </div>
-        <span class="btnDelete"><img src="imagenes/delete.png"></span>
+        <button class="btnDelete"><img src="imagenes/delete.png"></button>
     </div>
     <div class="estadoCompartido">
         <div class="contenidoCompartido">
@@ -162,6 +162,8 @@ const rellenarPerfil = async (containerPost) => {
     datosPost.forEach((post) => {
         containerPost.prepend(subirContainer(post.id, userData.username, userData.descripcion, post.publicacion, ''));
     });
+    btnEliminarPost();;
+
 };
   
 export const contenidoPerfil = () => {
@@ -210,8 +212,9 @@ export const contenidoPerfil = () => {
             
             <div class="contenidoTextPerfil">
                 <h2>${userData.username}</h2>
-                <p>${userData.descripcion}</p>
-                <p>Soy de ${userData.ubicacion}</p>
+                <p>(${userData.name})</p>
+                <p>"${userData.descripcion}"</p>
+                <p>${userData.ubicacion}</p>
             </div>
 
             <div class="botonesDelPerfil">
@@ -236,4 +239,21 @@ export const contenidoPerfil = () => {
     perfilSeccion.appendChild(btnEditarPerfilResponsive);
     perfilSeccion.appendChild(contenedorPublicacionesPerfil);
     return perfilSeccion;
+};
+
+export const btnEliminarPost = () => {
+    const postsCards = document.getElementsByClassName("usuarioPost");
+    //console.log(postsCards);
+    Array.from(postsCards).forEach((postCard) => {
+        const btnEliminar = postCard.querySelector(".btnDelete");       
+        btnEliminar.addEventListener("click", async () => {
+            const postEliminado = document.getElementById(postCard.id);
+            await eliminarPost(postCard.id);  
+            console.log("si elimino el post");          
+            postEliminado.parentElement.remove();
+          
+        })
+        
+    })
+   
 };

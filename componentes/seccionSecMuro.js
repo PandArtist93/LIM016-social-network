@@ -1,13 +1,13 @@
 import {
-  obtenerPosts, obtenerUsuarioById, obtenerPostById, subirPostA,
+  obtenerPosts, obtenerPostById, subirPostA,
 } from '../firebase/funcionesFirestore.js';
 
-const subirContainer = (creadorPost, apodoUser, postTxt, srcImagenPost) => {
+const subirContainer = (idPost, creadorPost, apodoUser, postTxt, srcImagenPost) => {
   const divTablero = document.createElement('div');
   divTablero.classList.add('tableroPost');
 
   divTablero.innerHTML = `
-    <div class="usuarioPost">
+    <div class="usuarioPost" id= "${idPost}">
         <div class="imgUsuarioPost"><img class="imgPost"src="imagenes/ImgUsuario3.png"></div>
         <div class="infoUsuarioPost">
             <div class="nombreUsuarioPost"><p>${creadorPost}</p><img src="imagenes/bxs-user-plus 2.png"></div>
@@ -21,7 +21,7 @@ const subirContainer = (creadorPost, apodoUser, postTxt, srcImagenPost) => {
         </div>
     </div>
     <div class="botonesReaccion">
-        <img src="imagenes/heartIcono.png">
+        <img src="imagenes/heartIcono.png" class="like">
         <img src="imagenes/comentIcono.png">
         <img src="imagenes/compartirIcono.png">
     </div>
@@ -31,10 +31,18 @@ const subirContainer = (creadorPost, apodoUser, postTxt, srcImagenPost) => {
 
 const rellenarHome = async (conteinerPost) => {
   const datosPost = await obtenerPosts();
+ /*  datosPost.forEach((post) => {
+    obtenerUsuarioById(post.usuarioId)
+    .then((datosUsuario) => {
+      //console.log("el siguiente usuario tiene publicaciones: " + datosUsuario.username);
+      conteinerPost.prepend(subirContainer(datosUsuario.username, datosUsuario.descripcion, post.publicacion, ''));
+    })
+    .catch(() => {
+      console.log("el siguiente usuario ha sido borrado: " + post.usuarioId);
+      console.log("no se puede encontrar el Id del usuario del siguiente post: " + post);
+    }) */
   datosPost.forEach((doc) => {
-    obtenerUsuarioById(doc.usuarioId).then((datosUsuario) => {
-      conteinerPost.prepend(subirContainer(datosUsuario.username, datosUsuario.descripcion, doc.publicacion, ''));
-    });
+    conteinerPost.prepend(subirContainer(doc.postId, doc.creador, doc.descripcion, doc.publicacion, ''));
   });
 };
 
@@ -82,7 +90,6 @@ export const seccionMuro2 = () => {
             <option value="value3">Adoptar</option>
             <option value="value4">Lugares</option>
             <option value="value5">Donaciones</option>
-            <option value="value6"></option>
         </select>
         <button class="botonCompartir">Compartir</button>
     </div>
@@ -90,7 +97,7 @@ export const seccionMuro2 = () => {
   const contenedorPublicaciones = document.createElement('div');
   contenedorPublicaciones.classList.add('container-post');
   contenedorPublicaciones.setAttribute('id', 'container-post');
-  contenedorPublicaciones.prepend(subirContainer('Maria Casas', 'catLover', 'Adoptar una mascota es cambiar dos vidas: la de la mascota que al fin olvidará sus duros días sin familia y la de quien se convertirá en su dueño y tendrá días cargados de amor. Si te interesa acoger a un nuevo miembro en tu hogar, estas son algunas de las muchas opciones que encuentras para adoptar animales en Lima.', ''));
+  //contenedorPublicaciones.prepend(subirContainer('Maria Casas', 'catLover', 'Adoptar una mascota es cambiar dos vidas: la de la mascota que al fin olvidará sus duros días sin familia y la de quien se convertirá en su dueño y tendrá días cargados de amor. Si te interesa acoger a un nuevo miembro en tu hogar, estas son algunas de las muchas opciones que encuentras para adoptar animales en Lima.', ''));
   rellenarHome(contenedorPublicaciones);
 
   segundaSeccion.appendChild(navInferior);
@@ -106,11 +113,12 @@ export const creacionPost = (formCompartir, containerPost) => {
     e.preventDefault();
     const inputCompartir = document.getElementById('inputCompartir').value;
     const userData = JSON.parse(sessionStorage.userSession);
-    await subirPostA('home', userData.id, inputCompartir).then((doc) => {
-      obtenerPostById(doc.id).then((postsById) => {
-        containerPosts.prepend(subirContainer(userData.username, userData.descripcion, postsById.publicacion, ''));
+    await subirPostA('home', userData.id, inputCompartir, userData.username, userData.descripcion)
+      .then((doc) => {
+        obtenerPostById(doc.id).then((postsById) => {
+          containerPosts.prepend(subirContainer(doc.id, postsById.creador, postsById.descripcion, postsById.publicacion, ''));
+        });
       });
-    });
     divCompartir.reset();
   });
 };

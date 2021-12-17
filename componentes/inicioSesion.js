@@ -103,7 +103,9 @@ export const inicioSesion = (selectorForm, containerError) => {
           const data = {
             correo: googleUser.email,
             username: googleUser.displayName,
-            id: googleUser.uid
+            id: googleUser.uid,
+            descripcion: " ",
+            name: " "
           }
           sessionStorage.setItem('userSession', JSON.stringify(data));
           window.location.hash = '#/artmuro';
