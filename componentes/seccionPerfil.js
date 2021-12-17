@@ -212,8 +212,8 @@ export const contenidoPerfil = () => {
             
             <div class="contenidoTextPerfil">
                 <h2>${userData.username}</h2>
-                <p>(${userData.name})</p>
-                <p>"${userData.descripcion}"</p>
+                <p>${userData.name}</p>
+                <p>${userData.descripcion}</p>
                 <p>${userData.ubicacion}</p>
             </div>
 

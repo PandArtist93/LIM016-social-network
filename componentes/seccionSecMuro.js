@@ -31,16 +31,6 @@ const subirContainer = (idPost, creadorPost, apodoUser, postTxt, srcImagenPost) 
 
 const rellenarHome = async (conteinerPost) => {
   const datosPost = await obtenerPosts();
- /*  datosPost.forEach((post) => {
-    obtenerUsuarioById(post.usuarioId)
-    .then((datosUsuario) => {
-      //console.log("el siguiente usuario tiene publicaciones: " + datosUsuario.username);
-      conteinerPost.prepend(subirContainer(datosUsuario.username, datosUsuario.descripcion, post.publicacion, ''));
-    })
-    .catch(() => {
-      console.log("el siguiente usuario ha sido borrado: " + post.usuarioId);
-      console.log("no se puede encontrar el Id del usuario del siguiente post: " + post);
-    }) */
   datosPost.forEach((doc) => {
     conteinerPost.prepend(subirContainer(doc.postId, doc.creador, doc.descripcion, doc.publicacion, ''));
   });
