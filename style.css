@@ -283,6 +283,7 @@ header{
     display: flex;
     padding: 1% 0;
     align-items: center;
+    text-decoration: none;
 }
 .categoriaUnica img{
     align-items: center;
@@ -300,6 +301,46 @@ header{
     color: #8F7D7D;
 }
 /* ---------------características de la sección de post-----------*/
+#tituloCategoria{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+/*----MODAL GRUPOS----*/
+.modalCategoria {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0,0.5);
+}
+.seccionModal{
+    background-color: #E5DCC3;
+    border-radius: 10px;
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.35);
+    margin: 40% auto;
+    padding: 2% 5%;
+    width: 70%;
+    box-shadow: 0 5px 8px 0 rgb(0 0 0 / 20%), 0 7px 20px 0 rgb(0 0 0 / 17%);
+}
+.seccionModal .categoriaUnica {
+    justify-content: left;
+}
+.tituloModal {
+    display: flex;
+    justify-content: space-between;
+    font-size: 25px;
+    color: #844124;
+}
+.btnCerrar{
+    font-weight: bold;
+    color: #ED0F0F;
+}
+/*--------------------------------------------------------------*/
 .tableroCompartir, .tableroPost{
     margin: 3vh 5.5% 3vh 0;
     border-radius: 10px;
@@ -703,7 +744,7 @@ figure{
     color: #844124;
     font-weight: 600;
 }
-.btnDelete{
+.btnDelete, .btnEdit{
     display: flex;
     align-items: center;
     justify-content: center;
@@ -882,6 +923,9 @@ footer{
     .enlacePerfil, .secUsuario, .secCategorias{
         display: none;
     }
+    .categoriaUnica{
+        justify-content: center;
+    }
     .enlacePerfil{
         display: none;
     }
@@ -922,7 +966,7 @@ footer{
     }
     .contenidoTextPerfil h2, .contenidoTextPerfil p {
         text-align: center;
-    }
+    }   
 }
 @media (max-width: 640px){
     .slogan{
@@ -936,7 +980,6 @@ footer{
     }
     .cuerpoPerfil .usuarioPost {
         justify-content: space-between;
-        
     }
     .cuerpoPerfil{
         margin-bottom: 9vh;

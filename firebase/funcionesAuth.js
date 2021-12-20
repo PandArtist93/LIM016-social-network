@@ -33,5 +33,3 @@ export const estadoAuthUsuario = (callback) => onAuthStateChanged(auth, callback
   return sendPasswordResetEmail(auth, correo);
 };
  */
-
-

@@ -61,7 +61,6 @@ export const inicioSesion = (selectorForm, containerError) => {
             sessionStorage.setItem('userSession', JSON.stringify(dataa));
             window.location.hash = '#/artmuro';
           });
-          
         } else {
           ubicacionModal.innerHTML = modalInicioSesion.confirmar();
           setTimeout(() => {
@@ -95,23 +94,21 @@ export const inicioSesion = (selectorForm, containerError) => {
     googleInicioSesion(proveedor)
       // eslint-disable-next-line no-unused-vars
       .then((result) => {
-        //console.log(result.user);
-        const googleUser = result.user
+        const googleUser = result.user;
 
-        agregarGoogleUser(googleUser.uid, googleUser)
-        .then(()=> {
-          const data = {
-            correo: googleUser.email,
-            username: googleUser.displayName,
-            id: googleUser.uid,
-            descripcion: " ",
-            name: " ",
-            ubicacion: " "
-          }
-          sessionStorage.setItem('userSession', JSON.stringify(data));
-          window.location.hash = '#/artmuro';
-        })
-        
+        agregarGoogleUser(googleUser.uid, googleUser)     
+          .then(() => {
+            const data = {
+              correo: googleUser.email,
+              username: googleUser.displayName,
+              id: googleUser.uid,
+              descripcion: '',
+              name: '',
+              ubicacion: ' '
+            };
+            sessionStorage.setItem('userSession', JSON.stringify(data));
+            window.location.hash = '#/artmuro';
+          });
         // This gives you a Google Access Token. You can use it to access the Google API.
         // const credential = GoogleAuthProvider.credentialFromResult(result);
         // const token = credential.accessToken;

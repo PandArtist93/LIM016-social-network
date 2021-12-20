@@ -5,7 +5,7 @@ export const seccionMuro1 = () => {
   primeraSeccion.classList.add('item2');
 
   const userData = validateSessionStorage();
-  //const userData = JSON.parse(sessionStorage.userSession);
+  // const userData = JSON.parse(sessionStorage.userSession);
   primeraSeccion.innerHTML = `
         <section class="secUsuario">
             <div class="contenedorPortada">
@@ -23,23 +23,23 @@ export const seccionMuro1 = () => {
         <section class="secCategorias">
             <h1>Grupos</h1>            
             <div class= "contenedorCategorias">         
-                <a class="categoriaUnica">
+                <a href="#/artrefugio" class="categoriaUnica">
                     <img src="imagenes/iconoRefugioMascotas.png" >
-                    <p>Refugio</p>
+                    <p>Refugios</p>
                 <a>
-                <a class="categoriaUnica">
+                <a href="#/artmascotasperdidas" class="categoriaUnica">
                     <img src="imagenes/reportarIcono.png" >
-                    <p>Mascotas perdidas</p>
+                    <p>Mascotas Perdidas</p>
                 </a>
-                <a class="categoriaUnica">
+                <a href="#/artadoptar" class="categoriaUnica">
                     <img src="imagenes/adoptarIcono.png" >
                     <p>Adoptar</p>
                 </a>
-                <a class="categoriaUnica">
+                <a href="#/artlugares" class="categoriaUnica">
                     <img src="imagenes/localizacionIcono.png" >
-                    <p>Localización</p>
+                    <p>Lugares</p>
                 </a>
-                <a class="categoriaUnica">
+                <a href="#/artdonaciones" class="categoriaUnica">
                     <img src="imagenes/medicinasIcono.png" >
                     <p>Donaciones</p>
                 </a>           

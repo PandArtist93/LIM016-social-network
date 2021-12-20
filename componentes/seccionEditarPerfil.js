@@ -1,16 +1,15 @@
-// eslint-disable-next-line import/no-cycle
-import { actualizarPerfil, actualizarDatosPost } from '../firebase/funcionesFirestore.js';
+import { actualizarPerfil } from '../firebase/funcionesFirestore.js';
 import { validateSessionStorage } from './validaciones.js';
 
 export const contenidoEditarPerfil = () => {
-  const EditarSeccion = document.createElement('section');
-  EditarSeccion.classList.add('cuerpoEditarPerfil');
-  const userData = validateSessionStorage();
-  EditarSeccion.innerHTML = `
+const EditarSeccion = document.createElement('section');
+EditarSeccion.classList.add('cuerpoEditarPerfil');
+const userData = validateSessionStorage();
+    EditarSeccion.innerHTML = `
         <nav class= "barraNavegacionInferior">
             <ul>
                 <li class="list">
-                    <a>
+                    <a class="abrirModal">
                         <span class="icon">
                             <img src="imagenes/users-three.png">
                         </span>
@@ -43,7 +42,7 @@ export const contenidoEditarPerfil = () => {
                         </div>
                         <div class="infActualDelUsuario" id="infActualDelUsuario">
                             <div class="imgPerfilUsuario">
-                                <img src="imagenes/ImgUsuario.png">
+                            <img src="imagenes/ImgUsuario.png">
                             </div>
 
                             <div class="contenidoTextPerfil">
@@ -57,6 +56,7 @@ export const contenidoEditarPerfil = () => {
 
                     <div class="modalFormulario" id="modalFormulario">
                         <form id="formIngreso">
+              
                             <div class="cajaImputDatos">
                                 <p class="textSeccActualizacion" id="">Usuario:</p>
                                 <input type="text" id="actualizacionUsuario" class="datosParaActualizar" autocapitalize="sentence">
@@ -82,51 +82,54 @@ export const contenidoEditarPerfil = () => {
                             </div>
                         </form>
                     </div>
+            
                 </div>
             </div>
-        </div>`;
-  return EditarSeccion;
+        </div>
+    `;
+    return EditarSeccion;
 };
 
 export const actualizarDatosPerfil = (username, name, ubicacion, descripcion) => {
-    const nombreDelUsuario = document.getElementById('nombreDelUsuario');
-    const nombreDelPerfil = document.getElementById('nombreDelPerfil');
-    const ubicacionDelPerfil = document.getElementById('ubicacionDelPerfil');
-    const descripcionDelPerfil = document.getElementById('descripcionDelPerfil');
-    nombreDelUsuario.innerHTML = username;
-    nombreDelPerfil.innerHTML = name;
-    ubicacionDelPerfil.innerHTML = ubicacion;
-    descripcionDelPerfil.innerHTML = descripcion;
-};
-
-export const btnEditarPerfil = () => {
-    const btnGuardarCambios = document.getElementById("guardarCambios"); 
-    btnGuardarCambios.addEventListener("click", (e) =>{
-        e.preventDefault();
-        const inputusuarioActualizado = document.getElementById("actualizacionUsuario").value;
-        const inputNombreActualizado = document.getElementById("actualizacionNombre").value;
-        const inputDescripcionActualizado = document.getElementById("actualizacionEstado").value;
-        const inputUbicacionActualizado = document.getElementById("actualizacionUbicacion").value;
-        const userData = JSON.parse(sessionStorage.userSession);
-        actualizarDatosPost(userData.id, inputusuarioActualizado, inputDescripcionActualizado);
-        actualizarPerfil(userData.id, inputNombreActualizado, inputusuarioActualizado,  inputUbicacionActualizado, inputDescripcionActualizado)
-        .then(() => {
-            const userData = JSON.parse(sessionStorage.userSession);
-            userData.username = inputusuarioActualizado;
-            userData.name = inputNombreActualizado;
-            userData.ubicacion = inputUbicacionActualizado;
-            userData.descripcion = inputDescripcionActualizado;
-            sessionStorage.setItem("userSession", JSON.stringify(userData));   
-            actualizarDatosPerfil(inputusuarioActualizado, inputNombreActualizado, inputUbicacionActualizado, inputDescripcionActualizado);
-        });
-    });
-};
-
-/* export const actualizarDatosPerfil = (name, ubicacion, descripcion) => {
+  const nombreDelUsuario = document.getElementById('nombreDelUsuario');
   const nombreDelPerfil = document.getElementById('nombreDelPerfil');
   const ubicacionDelPerfil = document.getElementById('ubicacionDelPerfil');
   const descripcionDelPerfil = document.getElementById('descripcionDelPerfil');
+  nombreDelUsuario.innerHTML = username;
   nombreDelPerfil.innerHTML = name;
   ubicacionDelPerfil.innerHTML = ubicacion;
   descripcionDelPerfil.innerHTML = descripcion;
-}; */
+};
+
+export const btnEditarPerfil = () => {
+  const btnGuardarCambios = document.getElementById('guardarCambios');
+  btnGuardarCambios.addEventListener('click', (e) => {
+    e.preventDefault();
+    const inputusuarioActualizado = document.getElementById('actualizacionUsuario').value;
+    const inputNombreActualizado = document.getElementById('actualizacionNombre').value;
+    const inputDescripcionActualizado = document.getElementById('actualizacionEstado').value;
+    const inputUbicacionActualizado = document.getElementById('actualizacionUbicacion').value;
+    const userData = JSON.parse(sessionStorage.userSession);
+    actualizarPerfil(
+      userData.id,
+      inputNombreActualizado,
+      inputusuarioActualizado,
+      inputUbicacionActualizado,
+      inputDescripcionActualizado,
+    )
+      .then(() => {
+        userData.username = inputusuarioActualizado;
+        userData.name = inputNombreActualizado;
+        userData.ubicacion = inputUbicacionActualizado;
+        userData.descripcion = inputDescripcionActualizado;
+        sessionStorage.setItem('userSession', JSON.stringify(userData));
+        actualizarDatosPerfil(
+          inputusuarioActualizado,
+          inputNombreActualizado,
+          inputUbicacionActualizado,
+          inputDescripcionActualizado,
+        );
+      });
+  });
+};
+
