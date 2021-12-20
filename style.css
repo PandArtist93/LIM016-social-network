@@ -201,8 +201,10 @@ header{
     text-transform: capitalize;
 }
 .imagenUsuario{
-    width: 60px;
-    height: 60px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 2px solid #844124;
 }
 .titulo-header{
     height: 70%;
@@ -235,12 +237,14 @@ header{
     align-items: center;
     border-radius: 0 0 10px 10px;
     box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.35);
-    padding: 0.4%;
+    padding: 3%;
     border-color: #844124;
 }
 .contenedorPerfil img{
-    width: 130px;
-    height: 130px;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 2px solid #844124;
 }
 .datosUsuario{
     display: flex;
@@ -351,7 +355,7 @@ header{
     background-color: #E5DCC3;
     height:auto;
 }
-.tableroCompartir input{
+.tableroCompartir textarea{
     width: 100%;
     height: 15vh;
     border-color: transparent;
@@ -378,7 +382,7 @@ header{
     overflow: hidden;
     font-size: 17px;
     font-weight: 600;
-    width: 25%;
+    width: 29%;
     min-width: 95px;
     height: 6vh;
     cursor: pointer;
@@ -395,6 +399,7 @@ header{
     min-width: 95px;
     height: 6vh;
     cursor: pointer;
+    text-align: center;
 }
 .container-post{
     width: auto;
@@ -419,7 +424,9 @@ header{
 }
 .imgPost{
     width: 80px;  
-    height: 80px;  
+    height: 80px; 
+    border-radius: 50%; 
+    border: 2px solid #844124;
 }
 .infoUsuarioPost{
     display: flex;
@@ -594,8 +601,9 @@ header{
 }
 .imgPerfilUsuario img{
     border-radius: 50%;
-    width: 180px;
-    height: 180px;
+    width: 110px;
+    height: 110px;
+    border: 2px solid #844124;
 }
 .modalFormulario{
     display: flex;
@@ -633,6 +641,23 @@ header{
     border-radius: 7px;
     box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.35);
 }
+#selbtn{
+    /* display: flex; */
+    width: 100%;
+    height: 30%;
+    min-height: 32px;
+    /* margin: 2% 0; */
+    border: transparent;
+    border-radius: 7px;
+    box-shadow: none;
+}
+#imgUsuario {
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+    border: 2px solid #844124;
+} 
+
 .botonesFormularios{
     display: flex;
     width: 100%;
@@ -725,11 +750,16 @@ figure{
     bottom: 100%;
     border-radius: 0 0 10px 10px;
     padding: 2%;
+    align-items: center;
 }
 .botonesReaccion img{
     width: 30px;
     height: 30px;
-    margin: 1%;
+    margin-left: 2%;
+    cursor: pointer;
+}
+.botonesReaccion i{
+    font-size: 30px;
     cursor: pointer;
 }
 .icon img{
@@ -753,6 +783,7 @@ figure{
     cursor: pointer;
     border: transparent;
     background-color: transparent;
+    margin-left: 2%;
 }
 .desplegable li a img, .desplegable2 li a img{
     margin-right: 5px;
@@ -865,6 +896,11 @@ footer{
         width: 95%;
         margin-bottom: 8vh;
     }
+    .tableroCompartir select, .tableroCompartir .botonCompartir{
+        font-size: 15px;
+        height: 40px;
+        min-height: 40px;
+    }
 }
 @media screen and (max-width:860px){
     .item3{
@@ -884,6 +920,11 @@ footer{
     }
     .estadoUsuario{
         font-size: 14px;
+    }
+    .tableroCompartir select, .tableroCompartir .botonCompartir{
+        font-size: 15px;
+        height: 40px;
+        min-height: 40px;
     }
 }
 @media screen and (max-width:785px){
@@ -967,6 +1008,14 @@ footer{
     .contenidoTextPerfil h2, .contenidoTextPerfil p {
         text-align: center;
     }   
+    .tituloCategoria{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .botonesDelPerfil{
+        display: none;
+    }
 }
 @media (max-width: 640px){
     .slogan{
@@ -1068,10 +1117,20 @@ footer{
         height: 60vh;
     }
     .seccPostUsuario{
-        width: 95%;
+        
         margin-bottom: 6vh;
+        min-width: 70px;
     }
 }
+@media screen and (max-width: 385px){
+    .tableroCompartir select, .tableroCompartir .botonCompartir{
+        width: 70px;
+        font-size: 12px;
+        min-width: 70px;
+        height: 35px;
+        min-height: 35px;
+    }
+} 
 @media screen and (max-width: 360px){
     .fondo1{
         width: 95%;
@@ -1138,4 +1197,46 @@ footer{
     .btnEditar{
         height: 10vh;
     }
+}
+.botones input{
+    display: flex;
+    align-items: center;
+    width: 40%;
+    height: auto;
+    border-radius: 0;
+}
+.editForm{
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+}
+.editFormt textarea{    
+    width: 100%;
+    height: 15vh;
+    border-color: transparent;
+    border-radius: 10px;
+}
+.secBtnEditarPost{
+    display: flex;
+    margin: 2% 0;
+    justify-content: space-around;
+}
+.botonGuardarCambios, .botonCancelarCambios{
+    display: flex;
+    background-color: #F0AA70;
+    border-radius: 10px;
+    box-shadow: 4px 4px 10px rgb(0 0 0 / 35%);
+    border-color: transparent;
+    overflow: hidden;
+    justify-content: center;
+    width: 40%;
+    min-width: 102px;
+    color:white;
+    font-weight: 600;
+    font-size: 14px;
+    max-width: 160px;
+    height: 6vh;
+    cursor: pointer;
+    align-items: center;
+    padding: 3px;
 }

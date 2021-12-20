@@ -5,38 +5,45 @@ import {
   obtenerById,
   subirLikes,
 } from '../firebase/funcionesFirestore.js';
+import { validateSessionStorage } from './validaciones.js';
 
 export const btnLikes1 = () => {
   const postsCards = document.getElementsByClassName('botonesReaccion');
   // console.log(postsCards);
   Array.from(postsCards).forEach((postCard) => {
     const btnLike = postCard.querySelector('.like');
+    const userData = JSON.parse(sessionStorage.userSession);
     btnLike.addEventListener('click', async () => {
       const hijo = btnLike.getAttribute('name');
       const hermano = btnLike.nextElementSibling;
-      // console.log(hermano);
-      const userData = JSON.parse(sessionStorage.userSession);
       const veamos = await obtenerById(hijo, 'posts');
-      // console.log(veamos);
+
       if (veamos.likes.includes(userData.id)) {
-        console.log('esta');
         subirLikes(hijo, veamos.likes.filter((item) => item !== userData.id));
-        hermano.textContent = veamos.likes.length;
+        hermano.textContent = veamos.likes.length - 1;
+        btnLike.style.color = '#8F7D7D';
+        //
       } else {
-        console.log('no esta');
         subirLikes(hijo, [...veamos.likes, userData.id]);
-        hermano.textContent = veamos.likes.length;
+        hermano.textContent = veamos.likes.length + 1;
+        btnLike.style.color = 'red';
       }
     });
   });
 };
 
 const mostrarPostPorCategoria = async (containerPost, grupo) => {
+  const userData = JSON.parse(sessionStorage.userSession);
   const usuarios = await obtenerUsuarios();
   const datosPost = await obtenerPostsGrupo(grupo);
   datosPost.forEach((docs) => {
     const creadorPost = usuarios.filter((user) => user.userId === docs.usuarioId);
     containerPost.prepend(subirContainer(docs.postId, docs, creadorPost[0]));
+    if (docs.likes.includes(userData.id)) {
+      document.getElementsByName(docs.postId)[0].style.color = 'red';
+    } else {
+      document.getElementsByName(docs.postId)[0].style.color = '#8F7D7D';
+    }
   });
   btnLikes1();
 };
@@ -47,6 +54,7 @@ export const contenidoCategoria = (imgsrc, tituloCategoria) => {
 
   const navInferior = document.createElement('nav');
   navInferior.classList.add('barraNavegacionInferior');
+  const userData = validateSessionStorage();
   navInferior.innerHTML = `
         <ul>
         <li class="list">
@@ -66,7 +74,7 @@ export const contenidoCategoria = (imgsrc, tituloCategoria) => {
         <li class="list">
             <a href="#/artperfil">
                 <span class="icon">
-                    <img src="imagenes/ImgUsuario.png">
+                    <img src="${userData.imgUsuario}">
                 </span>
             </a>
         </li>

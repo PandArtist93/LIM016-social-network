@@ -12,7 +12,7 @@ export const seccionMuro1 = () => {
                 <img src="imagenes/ImgDelUsuario.png">
             </div>  
             <div class="contenedorPerfil">
-                <img src="imagenes/ImgUsuario.png">
+                <img src="${userData.imgUsuario}">
                 <div class="datosUsuario">
                     <h2 class="nombreUsuario">${userData.username}</h2>
                     <p class="correoUsuario">${userData.correo}</p>

@@ -10,7 +10,7 @@ import {
 import { cerrarSesion, menuPuntosVerticales, modalCategorias } from '../componentes/headerMuro.js';
 import { userState } from '../componentes/validaciones.js';
 import { creacionPost } from '../componentes/seccionSecMuro.js';
-import { btnEditarPerfil } from '../componentes/seccionEditarPerfil.js';
+import { btnEditarPerfil /* subiendoImg */ } from '../componentes/seccionEditarPerfil.js';
 
 export const vistasPantalla = () => {
   const main = document.getElementById('main');
@@ -91,6 +91,7 @@ export const vistasPantalla = () => {
       menuPuntosVerticales();
       modalCategorias();
       btnEditarPerfil();
+      // subiendoImg();
       break;
 
     default:

@@ -2,6 +2,7 @@ import {
   obtenerPosts, obtenerById, subirDataHomeCol, subirLikes, obtenerUsuarios,
 } from '../firebase/funcionesFirestore.js';
 import { subirFileStorage } from '../firebase/funcionesStorage.js';
+import { validateSessionStorage } from './validaciones.js';
 
 export const subirContainer = (idPost, dataPost, dataCreador) => {
   const divTablero = document.createElement('div');
@@ -9,9 +10,9 @@ export const subirContainer = (idPost, dataPost, dataCreador) => {
 
   divTablero.innerHTML = `
     <div class="usuarioPost" id= "${idPost}">
-        <div class="imgUsuarioPost"><img class="imgPost"src="imagenes/ImgUsuario3.png"></div>
+        <div class="imgUsuarioPost"><img class="imgPost"src="${dataCreador.imgUsuario}"></div>
         <div class="infoUsuarioPost">
-            <div class="nombreUsuarioPost"><p>${dataCreador.username}</p><img src="imagenes/bxs-user-plus 2.png"></div>
+            <div class="nombreUsuarioPost"><p>${dataCreador.username}</p></div>
             <div class="descripcionUsuarioPost"><p>${dataCreador.descripcion}</p></div>
         </div>
     </div>
@@ -22,9 +23,8 @@ export const subirContainer = (idPost, dataPost, dataCreador) => {
         </div>
     </div>
     <div class="botonesReaccion">
-        <img src="imagenes/heartIcono.png" class="like" name= "${idPost}"><p>${dataPost.likes.length}</p>
-        <img src="imagenes/comentIcono.png">
-        <img src="imagenes/compartirIcono.png">
+        <i class="ph-heart-bold like" name= "${idPost}"}></i>
+        <p>${dataPost.likes.length}</p>
     </div>
     `;
 
@@ -33,36 +33,40 @@ export const subirContainer = (idPost, dataPost, dataCreador) => {
 
 export const btnLikes = () => {
   const postsCards = document.getElementsByClassName('botonesReaccion');
-  // console.log(postsCards);
+
   Array.from(postsCards).forEach((postCard) => {
     const btnLike = postCard.querySelector('.like');
     btnLike.addEventListener('click', async () => {
       const hijo = btnLike.getAttribute('name');
-      // const hermano = btnLike.nextElementSibling;
-      // console.log(hermano);
       const userData = JSON.parse(sessionStorage.userSession);
       const veamos = await obtenerById(hijo, 'posts');
-      // console.log(veamos);
+
       if (veamos.likes.includes(userData.id)) {
-        console.log('esta');
         subirLikes(hijo, veamos.likes.filter((item) => item !== userData.id));
-        // hermano.textContent = veamos.likes.length;
+        btnLike.style.color = '#8F7D7D';
       } else {
-        console.log('no esta');
         subirLikes(hijo, [...veamos.likes, userData.id]);
-        // hermano.textContent = veamos.likes.length;
+        btnLike.style.color = 'red';
       }
     });
   });
 };
 
 const rellenarHome = async (conteinerPost) => {
+  const userData = JSON.parse(sessionStorage.userSession);
   const usuarios = await obtenerUsuarios();
   await obtenerPosts((querySnapshot) => {
     querySnapshot.docChanges().forEach((change) => {
       if (change.type === 'added') {
         const creadorPost = usuarios.filter((user) => user.userId === change.doc.data().usuarioId);
+        console.log(creadorPost[0]);
         conteinerPost.prepend(subirContainer(change.doc.id, change.doc.data(), creadorPost[0]));
+
+        if (change.doc.data().likes.includes(userData.id)) {
+          document.getElementsByName(change.doc.id)[0].style.color = 'red';
+        } else {
+          document.getElementsByName(change.doc.id)[0].style.color = '#8F7D7D';
+        }
         /* console.log(change.doc.data().imgPost);
         if (change.doc.data().imgPost === '') {
           const containerImg = document.getElementsByClassName('imgPost');
@@ -92,6 +96,7 @@ export const seccionMuro2 = () => {
 
   const navInferior = document.createElement('nav');
   navInferior.classList.add('barraNavegacionInferior');
+  const userData = validateSessionStorage();
   navInferior.innerHTML = `
     <ul>
     <li class="list">
@@ -111,7 +116,7 @@ export const seccionMuro2 = () => {
     <li class="list">
         <a href="#/artperfil">
             <span class="icon">
-                <img src="imagenes/ImgUsuario.png">
+                <img src="${userData.imgUsuario}">
             </span>
         </a>
     </li>
@@ -121,19 +126,20 @@ export const seccionMuro2 = () => {
   tableroCompartir.setAttribute('id', 'formCompartir');
   tableroCompartir.classList.add('tableroCompartir');
   tableroCompartir.innerHTML = `
-    <input type="text" placeholder="¿Qué quieres reportar?" id="inputCompartir"><img id="imgPost"></input>
+    <textarea id="inputCompartir" placeholder="¿Qué quieres reportar?" rows="8" cols="76"></textarea>  
+    
     <div class="botones">
-        <input type="file" placeholder="Añadir Imagen" id="compartirImg">
-        <!--<button class="botonCompartirImagen" id="compartirImg"><img src="imagenes/botonCompartirImagen.png"></button>-->
+        <input type="file" placeholder="Añadir Imagen" id="compartirImg">         
         <select name="Grupo" id="Grupo" class="Grupo">
-            <option value="" selected disabled>Seleccionar</option>
-            <option value="Refugios">Refugios</option>
-            <option value="Mascotas Perdidas">Mascotas Perdidas</option>
-            <option value="Adoptar">Adoptar</option>
-            <option value="Lugares">Lugares</option>
-            <option value="Donaciones">Donaciones</option>
+          <option value="" selected disabled>Seleccionar</option>
+          <option value="Refugios">Refugios</option>
+          <option value="Mascotas Perdidas">Mascotas Perdidas</option>
+          <option value="Adoptar">Adoptar</option>
+          <option value="Lugares">Lugares</option>
+          <option value="Donaciones">Donaciones</option>
         </select>
         <button class="botonCompartir">Compartir</button>
+          
     </div>
   `;
 
@@ -213,7 +219,7 @@ export const creacionPost = (formCompartir) => {
       categoriaSelect = [];
       divCompartir.reset();
     } else {
-      const archivo = await subirFileStorage(urlImg[urlImg.length - 1]);
+      const archivo = await subirFileStorage(urlImg[urlImg.length - 1], 'imgPosts');
       await subirDataHomeCol(userData.id, postTxt, categoria, archivo);
       /* .then((doc) => {
         obtenerById(doc.id, 'posts').then((postsById) => {

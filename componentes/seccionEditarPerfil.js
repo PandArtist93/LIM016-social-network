@@ -1,5 +1,6 @@
 import { actualizarPerfil } from '../firebase/funcionesFirestore.js';
 import { validateSessionStorage } from './validaciones.js';
+import { subirFileStorage } from '../firebase/funcionesStorage.js';
 
 export const contenidoEditarPerfil = () => {
   const EditarSeccion = document.createElement('section');
@@ -25,7 +26,7 @@ export const contenidoEditarPerfil = () => {
                 <li class="list">
                     <a href="#/artperfil">
                         <span class="icon">
-                            <img src="imagenes/ImgUsuario.png">
+                            <img src="${userData.imgUsuario}">
                         </span>
                     </a>
                 </li>
@@ -42,7 +43,7 @@ export const contenidoEditarPerfil = () => {
                         </div>
                         <div class="infActualDelUsuario" id="infActualDelUsuario">
                             <div class="imgPerfilUsuario">
-                            <img src="imagenes/ImgUsuario.png">
+                                <img id="imgUsuario" src="${userData.imgUsuario}">
                             </div>
 
                             <div class="contenidoTextPerfil">
@@ -56,7 +57,12 @@ export const contenidoEditarPerfil = () => {
 
                     <div class="modalFormulario" id="modalFormulario">
                         <form id="formIngreso">
-              
+
+                            <div class="cajaImputDatos">
+                                <p class="textSeccActualizacion">Foto de perfil:</p>
+                                <input type="file" id="selbtn" class="datosParaActualizar"></input>
+                            </div>
+
                             <div class="cajaImputDatos">
                                 <p class="textSeccActualizacion" id="">Usuario:</p>
                                 <input type="text" id="actualizacionUsuario" class="datosParaActualizar" autocapitalize="sentence">
@@ -90,44 +96,56 @@ export const contenidoEditarPerfil = () => {
   return EditarSeccion;
 };
 
-export const actualizarDatosPerfil = (username, name, ubicacion, descripcion) => {
+export const actualizarDatosPerfil = (username, name, ubicacion, descripcion, imgusuario) => {
   const nombreDelUsuario = document.getElementById('nombreDelUsuario');
   const nombreDelPerfil = document.getElementById('nombreDelPerfil');
   const ubicacionDelPerfil = document.getElementById('ubicacionDelPerfil');
   const descripcionDelPerfil = document.getElementById('descripcionDelPerfil');
+  const imgUsuario = document.getElementById('imgUsuario');
   nombreDelUsuario.innerHTML = username;
   nombreDelPerfil.innerHTML = name;
   ubicacionDelPerfil.innerHTML = ubicacion;
   descripcionDelPerfil.innerHTML = descripcion;
+  imgUsuario.src = imgusuario;
 };
 
 export const btnEditarPerfil = () => {
   const btnGuardarCambios = document.getElementById('guardarCambios');
-  btnGuardarCambios.addEventListener('click', (e) => {
+  const btnArchivoLocal = document.getElementById('selbtn');
+  const urlImgUsuario = [];
+  btnArchivoLocal.addEventListener('change', (e) => {
+    urlImgUsuario.push(e.target.files[0]);
+  });
+  btnGuardarCambios.addEventListener('click', async (e) => {
     e.preventDefault();
     const inputusuarioActualizado = document.getElementById('actualizacionUsuario').value;
     const inputNombreActualizado = document.getElementById('actualizacionNombre').value;
     const inputDescripcionActualizado = document.getElementById('actualizacionEstado').value;
     const inputUbicacionActualizado = document.getElementById('actualizacionUbicacion').value;
     const userData = JSON.parse(sessionStorage.userSession);
+    const archivo = await subirFileStorage(urlImgUsuario[urlImgUsuario.length - 1], 'imgUsuarios');
+    console.log(archivo);
     actualizarPerfil(
       userData.id,
       inputNombreActualizado,
       inputusuarioActualizado,
       inputUbicacionActualizado,
       inputDescripcionActualizado,
+      archivo,
     )
       .then(() => {
         userData.username = inputusuarioActualizado;
         userData.name = inputNombreActualizado;
         userData.ubicacion = inputUbicacionActualizado;
         userData.descripcion = inputDescripcionActualizado;
+        userData.imgUsuario = archivo;
         sessionStorage.setItem('userSession', JSON.stringify(userData));
         actualizarDatosPerfil(
           inputusuarioActualizado,
           inputNombreActualizado,
           inputUbicacionActualizado,
           inputDescripcionActualizado,
+          archivo,
         );
       });
   });

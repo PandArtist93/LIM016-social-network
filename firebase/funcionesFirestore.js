@@ -46,7 +46,7 @@ export const obtenerById = async (idUser, nameColeccion) => {
 };
 
 // Agregar data inicial al momento de registro a la coleccion usuarios
-export const agregarDataUserFS = async (id, Username, Correo, Name, Descripcion, Ubicacion) => {
+export const agregarDataUserFS = async (id, Username, Correo, Name, Descripcion, Ubicacion, srcImg) => {
   const colRefId = doc(db, 'usuarios', id);
   await setDoc(colRefId, {
     username: Name,
@@ -54,6 +54,7 @@ export const agregarDataUserFS = async (id, Username, Correo, Name, Descripcion,
     ubicacion: Ubicacion,
     name: Username,
     descripcion: Descripcion,
+    imgUsuario: srcImg,
   });
 };
 
@@ -83,13 +84,14 @@ export const subirLikes = async (idPost, dataLikes) => {
   return getDoc(colRefId);
 }; */
 
-export const actualizarPerfil = (userId, name, username, ubicacion, descripcion) => {
+export const actualizarPerfil = (userId, name, username, ubicacion, descripcion, imgUsuario) => {
   const colRefId = doc(db, 'usuarios', userId);
   return updateDoc(colRefId, {
     username,
     name,
     ubicacion,
     descripcion,
+    imgUsuario,
   });
 };
 /* ---------------  Agregar  usuario a firestore desde boton de google -----------------------*/
