@@ -2,10 +2,10 @@ import { actualizarPerfil } from '../firebase/funcionesFirestore.js';
 import { validateSessionStorage } from './validaciones.js';
 
 export const contenidoEditarPerfil = () => {
-const EditarSeccion = document.createElement('section');
-EditarSeccion.classList.add('cuerpoEditarPerfil');
-const userData = validateSessionStorage();
-    EditarSeccion.innerHTML = `
+  const EditarSeccion = document.createElement('section');
+  EditarSeccion.classList.add('cuerpoEditarPerfil');
+  const userData = validateSessionStorage();
+  EditarSeccion.innerHTML = `
         <nav class= "barraNavegacionInferior">
             <ul>
                 <li class="list">
@@ -87,7 +87,7 @@ const userData = validateSessionStorage();
             </div>
         </div>
     `;
-    return EditarSeccion;
+  return EditarSeccion;
 };
 
 export const actualizarDatosPerfil = (username, name, ubicacion, descripcion) => {
@@ -132,4 +132,3 @@ export const btnEditarPerfil = () => {
       });
   });
 };
-

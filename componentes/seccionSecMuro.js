@@ -1,5 +1,5 @@
 import {
-  obtenerPosts, obtenerPostById, subirDataHomeCol, subirLikes, obtenerUsuarios,
+  obtenerPosts, obtenerById, subirDataHomeCol, subirLikes, obtenerUsuarios,
 } from '../firebase/funcionesFirestore.js';
 import { subirFileStorage } from '../firebase/funcionesStorage.js';
 
@@ -22,8 +22,7 @@ export const subirContainer = (idPost, dataPost, dataCreador) => {
         </div>
     </div>
     <div class="botonesReaccion">
-
-    <img src="imagenes/heartIcono.png" class="like" name= "${idPost}"><p>${dataPost.likes.length}</p>
+        <img src="imagenes/heartIcono.png" class="like" name= "${idPost}"><p>${dataPost.likes.length}</p>
         <img src="imagenes/comentIcono.png">
         <img src="imagenes/compartirIcono.png">
     </div>
@@ -42,7 +41,7 @@ export const btnLikes = () => {
       // const hermano = btnLike.nextElementSibling;
       // console.log(hermano);
       const userData = JSON.parse(sessionStorage.userSession);
-      const veamos = await obtenerPostById(hijo);
+      const veamos = await obtenerById(hijo, 'posts');
       // console.log(veamos);
       if (veamos.likes.includes(userData.id)) {
         console.log('esta');
@@ -64,6 +63,13 @@ const rellenarHome = async (conteinerPost) => {
       if (change.type === 'added') {
         const creadorPost = usuarios.filter((user) => user.userId === change.doc.data().usuarioId);
         conteinerPost.prepend(subirContainer(change.doc.id, change.doc.data(), creadorPost[0]));
+        /* console.log(change.doc.data().imgPost);
+        if (change.doc.data().imgPost === '') {
+          const containerImg = document.getElementsByClassName('imgPost');
+          Array.from(containerImg).forEach((each) => {
+            console.log(each);
+          });
+        } */
         btnLikes();
       }
       if (change.type === 'modified') {
@@ -75,11 +81,9 @@ const rellenarHome = async (conteinerPost) => {
       if (change.type === 'removed') {
         /* const postEliminado = document.getElementById(change.doc.id);
         postEliminado.parentElement.remove(); */
-        console.log(('se removio algo'));
       }
-      console.log(change);
-    });    
-  }); 
+    });
+  });
 };
 
 export const seccionMuro2 = () => {
@@ -202,7 +206,7 @@ export const creacionPost = (formCompartir) => {
     if (urlImg.length === 0) {
       await subirDataHomeCol(userData.id, postTxt, categoria, '');
       /* .then((doc) => {
-        obtenerPostById(doc.id).then((postsById) => {
+        obtenerById(doc.id,'posts').then((postsById) => {
           containerPosts.prepend(subirContainer(doc.id, postsById, ''));
         });
       }); */
@@ -212,7 +216,7 @@ export const creacionPost = (formCompartir) => {
       const archivo = await subirFileStorage(urlImg[urlImg.length - 1]);
       await subirDataHomeCol(userData.id, postTxt, categoria, archivo);
       /* .then((doc) => {
-        obtenerPostById(doc.id).then((postsById) => {
+        obtenerById(doc.id, 'posts').then((postsById) => {
           containerPosts.prepend(subirContainer(doc.id, postsById, ''));
         });
       }); */

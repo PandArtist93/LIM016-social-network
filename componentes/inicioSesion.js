@@ -7,7 +7,7 @@ import {
 import { proveedor, GoogleAuthProvider, proveedorFB } from '../firebase/config.js';
 import { modalInicioSesion } from './errores.js';
 import { mostrarYocultarClave } from './home.js';
-import { obtenerUsuarioById, agregarGoogleUser } from '../firebase/funcionesFirestore.js';
+import { obtenerById, agregarGoogleUser } from '../firebase/funcionesFirestore.js';
 
 // Creacion de formulario de inicio de Sesión de forma dinámica
 export const formInicioSesion = () => {
@@ -55,7 +55,7 @@ export const inicioSesion = (selectorForm, containerError) => {
       .then((userCredential) => {
         const user = userCredential.user;
         if (user.emailVerified === true) {
-          obtenerUsuarioById(user.uid).then((data) => {
+          obtenerById(user.uid, 'usuarios').then((data) => {
             const dataa = data;
             dataa.id = user.uid;
             sessionStorage.setItem('userSession', JSON.stringify(dataa));
@@ -96,7 +96,7 @@ export const inicioSesion = (selectorForm, containerError) => {
       .then((result) => {
         const googleUser = result.user;
 
-        agregarGoogleUser(googleUser.uid, googleUser)     
+        agregarGoogleUser(googleUser.uid, googleUser)
           .then(() => {
             const data = {
               correo: googleUser.email,
@@ -104,7 +104,7 @@ export const inicioSesion = (selectorForm, containerError) => {
               id: googleUser.uid,
               descripcion: '',
               name: '',
-              ubicacion: ' '
+              ubicacion: ' ',
             };
             sessionStorage.setItem('userSession', JSON.stringify(data));
             window.location.hash = '#/artmuro';

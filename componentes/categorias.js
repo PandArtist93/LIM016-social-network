@@ -2,7 +2,7 @@ import { subirContainer } from './seccionSecMuro.js';
 import {
   obtenerPostsGrupo,
   obtenerUsuarios,
-  obtenerPostById,
+  obtenerById,
   subirLikes,
 } from '../firebase/funcionesFirestore.js';
 
@@ -16,7 +16,7 @@ export const btnLikes1 = () => {
       const hermano = btnLike.nextElementSibling;
       // console.log(hermano);
       const userData = JSON.parse(sessionStorage.userSession);
-      const veamos = await obtenerPostById(hijo);
+      const veamos = await obtenerById(hijo, 'posts');
       // console.log(veamos);
       if (veamos.likes.includes(userData.id)) {
         console.log('esta');
