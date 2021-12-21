@@ -110,8 +110,6 @@ const rellenarPerfil = async (containerPost) => {
     containerPost.prepend(subirContainer(post.id, dataCreador[0], post));
     if (post.likes.includes(userData.id)) {
       document.getElementsByName(post.id)[0].style.color = 'red';
-    } else {
-      document.getElementsByName(post.id)[0].style.color = '#8F7D7D';
     }
   });
   btnLikes1();

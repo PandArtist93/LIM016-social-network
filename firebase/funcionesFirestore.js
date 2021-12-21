@@ -9,7 +9,6 @@ import {
   updateDoc,
   query,
   orderBy,
-  where,
   serverTimestamp,
   deleteDoc,
   onSnapshot,
@@ -107,13 +106,14 @@ export const agregarGoogleUser = (id, user) => {
 export const obtenerUserPosts = async () => {
   const userId = JSON.parse(sessionStorage.userSession).id;
   const colRef = collection(db, 'posts');
-  const q = query(colRef, where('usuarioId', '==', userId));
+  const q = query(colRef, orderBy('timestamp'));
   const querySnapshot = await getDocs(q);
   const posts = [];
   querySnapshot.forEach((docs) => {
     posts.push({ ...docs.data(), id: docs.id });
   });
-  return posts;
+  const postFiltrado = posts.filter((e) => e.usuarioId === userId);
+  return postFiltrado;
 };
 /* ---------------- Eliminar un post de con respecto al postId-------------------------- */
 export const eliminarPost = async (postId) => {
@@ -128,15 +128,16 @@ export const actualizarPost = (postId, publicacion) => {
   });
 };
 /* ---------------- Obtener posts de la seccion grupos por categoria--------------------------- */
-export const obtenerPostsGrupo = async (grupoCategoria) => {
+export const obtenerPostsGrupo = async (grupo) => {
   const colRef = collection(db, 'posts');
-  const q = query(colRef, where('categoria', '==', grupoCategoria));
+  const q = query(colRef, orderBy('timestamp'));
   const querySnapshot = await getDocs(q).then((snapshot) => {
     const posts = [];
     snapshot.docs.forEach((docs) => {
       posts.push({ ...docs.data(), postId: docs.id });
     });
-    return posts;
+    const postFiltrado = posts.filter((e) => e.categoria === grupo);
+    return postFiltrado;
   });
   return querySnapshot;
 };

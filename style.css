@@ -800,6 +800,7 @@ figure{
 .botonesReaccion i{
     font-size: 30px;
     cursor: pointer;
+    color: #8F7D7D;
 }
 .icon img{
     border-radius: 50%;
@@ -908,9 +909,6 @@ footer{
     }
 }
 @media (max-width: 993px){
-    .contenedorPerfil{
-        flex-direction: column;
-    }
     .contenedorPerfil img{
         width:80px;
         height: 80px;

@@ -41,8 +41,6 @@ const mostrarPostPorCategoria = async (containerPost, grupo) => {
     containerPost.prepend(subirContainer(docs.postId, docs, creadorPost[0]));
     if (docs.likes.includes(userData.id)) {
       document.getElementsByName(docs.postId)[0].style.color = 'red';
-    } else {
-      document.getElementsByName(docs.postId)[0].style.color = '#8F7D7D';
     }
   });
   btnLikes1();

@@ -64,8 +64,6 @@ const rellenarHome = async (conteinerPost) => {
 
         if (change.doc.data().likes.includes(userData.id)) {
           document.getElementsByName(change.doc.id)[0].style.color = 'red';
-        } else {
-          document.getElementsByName(change.doc.id)[0].style.color = '#8F7D7D';
         }
         /* console.log(change.doc.data().imgPost);
         if (change.doc.data().imgPost === '') {
