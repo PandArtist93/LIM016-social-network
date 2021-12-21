@@ -41,20 +41,22 @@ export const formInicioSesion = () => {
 
 // Función que se encarga del inicio de Sesión por correo
 export const inicioSesion = (selectorForm, containerError) => {
-  mostrarYocultarClave('botonContraseña', 'claveIngreso');
-  cierreActividadUsuario();
-  sessionStorage.clear();
+  mostrarYocultarClave('botonContraseña', 'claveIngreso'); // funcion de mostrar y ocultar contraseña
+  cierreActividadUsuario(); // ve que no hay actividad de usuario
+  sessionStorage.clear(); // limpia el Storage
   const iniciarCon = document.getElementById(selectorForm);
   iniciarCon.addEventListener('submit', (e) => {
     e.preventDefault();
     const correoIngreso = document.getElementById('correoIngreso').value;
     const claveIngreso = document.getElementById('claveIngreso').value;
+    // se llama al contenedor de los modales error
     const ubicacionModal = document.getElementById(containerError);
 
     inicioSesionUsuario(correoIngreso, claveIngreso)
       .then((userCredential) => {
         const user = userCredential.user;
         if (user.emailVerified === true) {
+          // obtener data del usuario logueado para agregar al sessionStorage
           obtenerById(user.uid, 'usuarios').then((data) => {
             const dataa = data;
             dataa.id = user.uid;
@@ -62,6 +64,7 @@ export const inicioSesion = (selectorForm, containerError) => {
             window.location.hash = '#/artmuro';
           });
         } else {
+          // muestra mensaje de error si no verifico por correo
           ubicacionModal.innerHTML = modalInicioSesion.confirmar();
           setTimeout(() => {
             const modales = document.getElementById('modalConfirmar');
@@ -70,6 +73,7 @@ export const inicioSesion = (selectorForm, containerError) => {
         }
       })
       .catch((error) => {
+        // se establece todos los mensajes de error
         if (error.message === 'Firebase: Error (auth/invalid-email).' || error.message === 'Firebase: Error (auth/wrong-password).') {
           ubicacionModal.innerHTML = modalInicioSesion.datosInvalidos();
           setTimeout(() => {
@@ -88,6 +92,7 @@ export const inicioSesion = (selectorForm, containerError) => {
       });
   });
 
+  // inicio sesion con proveedor google
   const botongoogle = document.getElementById('imgGoogle');
   botongoogle.addEventListener('click', () => {
     sessionStorage.clear();
@@ -105,7 +110,10 @@ export const inicioSesion = (selectorForm, containerError) => {
               descripcion: '',
               name: '',
               ubicacion: ' ',
+              imgUsuario: 'imagenes/user-circle-fill.png',
+              imgPortada: 'imagenes/ImgDelUsuario.png',
             };
+            // agregando datos al sessionStorage
             sessionStorage.setItem('userSession', JSON.stringify(data));
             window.location.hash = '#/artmuro';
           });
@@ -116,21 +124,13 @@ export const inicioSesion = (selectorForm, containerError) => {
         // console.log(user);
       })
       .catch((error) => {
-        // const errorCode = error.code;
-        // console.log(errorCode);
-
-        // const errorMessage = error.message;
-        // console.log((errorMessage));
-
-        // const email = error.email;
-        // console.log(email);
-
         const credential = GoogleAuthProvider.credentialFromError(error);
         // eslint-disable-next-line no-console
         console.log(credential);
       });
   });
 
+  // inicio sesion con proveedor facebook
   const botonFacebook = document.getElementById('imgFacebook');
   botonFacebook.addEventListener('click', () => {
     facebookInicioSesion(proveedorFB)

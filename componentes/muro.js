@@ -5,7 +5,8 @@ import { contenidoPerfil } from './seccionPerfil.js';
 import { contenidoEditarPerfil } from './seccionEditarPerfil.js';
 import { contenidoCategoria } from './categorias.js';
 
-export const muro = (/* parametro de la seccion2 */) => {
+// Render de la sección muro
+export const muro = () => {
   const articleMuro = document.createElement('article');
   articleMuro.classList.add('artMuro');
   articleMuro.setAttribute('id', 'artMuro');
@@ -21,7 +22,7 @@ export const muro = (/* parametro de la seccion2 */) => {
   const divSecciones = document.createElement('div');
   divSecciones.classList.add('grid-container');
   divSecciones.appendChild(seccionMuro1());
-  divSecciones.appendChild(seccionMuro2()); // callback de la segunda seccion
+  divSecciones.appendChild(seccionMuro2());
 
   articleMuro.appendChild(headerMuro);
   articleMuro.appendChild(seccionModalCategoria);
@@ -29,6 +30,7 @@ export const muro = (/* parametro de la seccion2 */) => {
   return articleMuro;
 };
 
+// Render de la sección perfil del usuario
 export const muroPerfil = () => {
   const articleMuroPerfil = document.createElement('article');
   articleMuroPerfil.classList.add('artPerfil');
@@ -53,6 +55,7 @@ export const muroPerfil = () => {
   return articleMuroPerfil;
 };
 
+// Render de la sección perfil del usuario para editar
 export const muroEditarPerfil = () => {
   const articleMuroEditarPerfil = document.createElement('article');
   articleMuroEditarPerfil.classList.add('artEditarPerfil');
@@ -77,6 +80,7 @@ export const muroEditarPerfil = () => {
   return articleMuroEditarPerfil;
 };
 
+// Render de la seccion categoria dependiendo del tipo de post
 export const seccionCategorias = (img, tituloCategoria) => {
   const articleRefugio = document.createElement('article');
 

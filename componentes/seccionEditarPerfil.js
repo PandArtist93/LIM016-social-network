@@ -1,7 +1,9 @@
+/* eslint-disable max-len */
 import { actualizarPerfil } from '../firebase/funcionesFirestore.js';
 import { validateSessionStorage } from './validaciones.js';
 import { subirFileStorage } from '../firebase/funcionesStorage.js';
 
+// Render de la seccion contenido editar perfil
 export const contenidoEditarPerfil = () => {
   const EditarSeccion = document.createElement('section');
   EditarSeccion.classList.add('cuerpoEditarPerfil');
@@ -101,6 +103,7 @@ export const contenidoEditarPerfil = () => {
   return EditarSeccion;
 };
 
+// Funcionalidad para sustituir datos de la seccion de perfil
 export const actualizarDatosPerfil = (username, name, ubicacion, descripcion, imgusuario, imgportada) => {
   const nombreDelUsuario = document.getElementById('nombreDelUsuario');
   const nombreDelPerfil = document.getElementById('nombreDelPerfil');
@@ -116,18 +119,18 @@ export const actualizarDatosPerfil = (username, name, ubicacion, descripcion, im
   imgPortada.src = imgportada;
 };
 
+// Funcionalidad del boton Editar Perfil
 export const btnEditarPerfil = () => {
   const btnGuardarCambios = document.getElementById('guardarCambios');
   const btnArchivoLocal = document.getElementById('selbtn');
   const btnArchivoLocalPortada = document.getElementById('ImgPortadaUpdate');
-  const urlImgUsuario = [];
-  const urlImgPortada = [];
+  const archivoImgUsuario = [];
+  const archivoImgPortada = [];
   btnArchivoLocal.addEventListener('change', (e) => {
-    urlImgUsuario.push(e.target.files[0]);
-   
+    archivoImgUsuario.push(e.target.files[0]);
   });
   btnArchivoLocalPortada.addEventListener('change', (e) => {
-    urlImgPortada.push(e.target.files[0]);
+    archivoImgPortada.push(e.target.files[0]);
   });
   btnGuardarCambios.addEventListener('click', async (e) => {
     e.preventDefault();
@@ -136,33 +139,33 @@ export const btnEditarPerfil = () => {
     const inputDescripcionActualizado = document.getElementById('actualizacionEstado').value;
     const inputUbicacionActualizado = document.getElementById('actualizacionUbicacion').value;
     const userData = JSON.parse(sessionStorage.userSession);
-    const archivo = await subirFileStorage(urlImgUsuario[urlImgUsuario.length - 1], 'imgUsuarios');
-    const archivoPortada = await subirFileStorage(urlImgPortada[urlImgPortada.length - 1], 'imgPortada');
-    console.log(archivoPortada);
+    const urlImagen = await subirFileStorage(archivoImgUsuario[archivoImgUsuario.length - 1], 'imgUsuarios');
+    const urlPortada = await subirFileStorage(archivoImgPortada[archivoImgPortada.length - 1], 'imgPortada');
     actualizarPerfil(
       userData.id,
       inputNombreActualizado,
       inputusuarioActualizado,
       inputUbicacionActualizado,
       inputDescripcionActualizado,
-      archivo,
-      archivoPortada,
+      urlImagen,
+      urlPortada,
     )
       .then(() => {
+        // obteniendo los datos para actualizar en el sessionStorage y metodo actualizarDatosPerfil
         userData.username = inputusuarioActualizado;
         userData.name = inputNombreActualizado;
         userData.ubicacion = inputUbicacionActualizado;
         userData.descripcion = inputDescripcionActualizado;
-        userData.imgUsuario = archivo;
-        userData.imgPortada = archivoPortada;
+        userData.imgUsuario = urlImagen;
+        userData.imgPortada = urlPortada;
         sessionStorage.setItem('userSession', JSON.stringify(userData));
         actualizarDatosPerfil(
           inputusuarioActualizado,
           inputNombreActualizado,
           inputUbicacionActualizado,
           inputDescripcionActualizado,
-          archivo,
-          archivoPortada,
+          urlImagen,
+          urlPortada,
         );
       });
   });

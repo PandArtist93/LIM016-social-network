@@ -1,4 +1,4 @@
-import { subirContainer } from './seccionSecMuro.js';
+import { renderPost } from './seccionSecMuro.js';
 import {
   obtenerPostsGrupo,
   obtenerUsuarios,
@@ -7,38 +7,50 @@ import {
 } from '../firebase/funcionesFirestore.js';
 import { validateSessionStorage } from './validaciones.js';
 
+// Reconoce todos los botones likes de cada publicacion
 export const btnLikes1 = () => {
-  const postsCards = document.getElementsByClassName('botonesReaccion');
-  // console.log(postsCards);
-  Array.from(postsCards).forEach((postCard) => {
-    const btnLike = postCard.querySelector('.like');
-    const userData = JSON.parse(sessionStorage.userSession);
-    btnLike.addEventListener('click', async () => {
-      const hijo = btnLike.getAttribute('name');
-      const hermano = btnLike.nextElementSibling;
-      const veamos = await obtenerById(hijo, 'posts');
+  const botonesPost = document.getElementsByClassName('botonesReaccion');
 
-      if (veamos.likes.includes(userData.id)) {
-        subirLikes(hijo, veamos.likes.filter((item) => item !== userData.id));
-        hermano.textContent = veamos.likes.length - 1;
+  // Busca donde se encuentra el target de reaccion en este caso 'like'
+  Array.from(botonesPost).forEach((botonPost) => {
+    const btnLike = botonPost.querySelector('.like');
+    const userData = JSON.parse(sessionStorage.userSession);
+
+    // Reconoce al boton y contador que se encuentra a lado
+    btnLike.addEventListener('click', async () => {
+      // se encuentra el id del post que esta asociado al atributo name y guardado en el idLike
+      const idLike = btnLike.getAttribute('name');
+      const contadorLike = btnLike.nextElementSibling;
+      const dataPost = await obtenerById(idLike, 'posts');
+      // verificando si el id del usuario esta en el array de likes de cada post
+      if (dataPost.likes.includes(userData.id)) {
+        // esto es para quitar el like por usuario
+        subirLikes(idLike, dataPost.likes.filter((item) => item !== userData.id));
+        contadorLike.textContent = dataPost.likes.length - 1;
         btnLike.style.color = '#8F7D7D';
-        //
       } else {
-        subirLikes(hijo, [...veamos.likes, userData.id]);
-        hermano.textContent = veamos.likes.length + 1;
+        // esto es para agregar like por usuario
+        subirLikes(idLike, [...dataPost.likes, userData.id]);
+        contadorLike.textContent = dataPost.likes.length + 1;
         btnLike.style.color = 'red';
       }
     });
   });
 };
 
+// Rellenar sección de categorias
 const mostrarPostPorCategoria = async (containerPost, grupo) => {
   const userData = JSON.parse(sessionStorage.userSession);
+  // Obtener data de los usuarios
   const usuarios = await obtenerUsuarios();
+  // Obtener los post con la categoria que coincida con parametro grupo
   const datosPost = await obtenerPostsGrupo(grupo);
   datosPost.forEach((docs) => {
+    // buscar información del creador de cada post
     const creadorPost = usuarios.filter((user) => user.userId === docs.usuarioId);
-    containerPost.prepend(subirContainer(docs.postId, docs, creadorPost[0]));
+    containerPost.prepend(renderPost(docs.postId, docs, creadorPost[0]));
+    // verificando si el id del usuario logueado se encuentra en el array de likes
+    // de ser correcto se pinta de rojo
     if (docs.likes.includes(userData.id)) {
       document.getElementsByName(docs.postId)[0].style.color = 'red';
     }
@@ -46,6 +58,7 @@ const mostrarPostPorCategoria = async (containerPost, grupo) => {
   btnLikes1();
 };
 
+// Renderizando el contenido categoria
 export const contenidoCategoria = (imgsrc, tituloCategoria) => {
   const categoriaSeccion = document.createElement('section');
   categoriaSeccion.classList.add('item3');

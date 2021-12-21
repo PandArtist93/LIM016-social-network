@@ -40,29 +40,32 @@ export const formRegistros = () => {
 
 // Función que se encarga del registro por correo
 export const registroCorreo = (selectorForm, containerError) => {
-  mostrarYocultarClave('botonClave', 'claveRegistro');
+  mostrarYocultarClave('botonClave', 'claveRegistro'); // funcion de mostrar y ocultar contraseña
   const registrarCon = document.getElementById(selectorForm);
   registrarCon.addEventListener('submit', (e) => {
     e.preventDefault();
     const usuarioRegistro = document.getElementById('usuarioRegistro').value;
     const correoRegistro = document.getElementById('correoRegistro').value;
     const claveRegistro = document.getElementById('claveRegistro').value;
+    // se llama al contenedor de los modales error
     const ubicacionModal = document.getElementById(containerError);
 
     registroUsuario(correoRegistro, claveRegistro)
       .then((userCredential) => {
         const user = userCredential.user;
+        // se envia el mensaje de verificacion por correo
         envioCorreoVerificacion().then(() => {
-          agregarDataUserFS(user.uid, usuarioRegistro, correoRegistro, '', '', '', 'imagenes/user-circle-fill.png');
+          agregarDataUserFS(user.uid, usuarioRegistro, correoRegistro, '', '', '', 'imagenes/user-circle-fill.png', 'imagenes/ImgDelUsuario.png');
         });
         ubicacionModal.innerHTML = modalRegistro.exito();
         setTimeout(() => {
-          const modalExito = document.getElementById('modalExito');
+          const modalExito = document.getElementById('modalExito');// muestra modal registro exitoso
           modalExito.style.display = 'none';
           window.location.hash = '#/inicio';
         }, 5000);
       })
       .catch((error) => {
+        // se establece todos los mensajes de error
         if (error.message === 'Firebase: Error (auth/invalid-email).') {
           ubicacionModal.innerHTML = modalRegistro.correoInvalido();
           setTimeout(() => {

@@ -245,7 +245,6 @@ header{
     display: flex;
     height: 20vh;
     background-color: #F2E0AA;
-    display: flex;
     position: relative;
     justify-content: center;
     align-items: center;
@@ -343,7 +342,6 @@ header{
 .seccionModal{
     background-color: #E5DCC3;
     border-radius: 10px;
-    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.35);
     margin: 40% auto;
     padding: 2% 5%;
     width: 70%;
@@ -378,6 +376,8 @@ header{
     height: 15vh;
     border-color: transparent;
     border-radius: 10px;
+    padding: 2%;
+    font-size: 18px;
 }
 .tableroCompartir .botones{
     padding: 1vh 0;
@@ -430,7 +430,7 @@ header{
 .usuarioPost{
     display: flex;
     align-items: center;
-    justify-content:center;
+    justify-content:left;
     padding: 0 3%;
 }
 .imgUsuarioPost{
@@ -679,6 +679,7 @@ header{
     border: transparent;
     border-radius: 7px;
     box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.35);
+    padding: 0 2%;
 }
 #selbtn, #ImgPortadaUpdate{
     /* display: flex; */
@@ -778,7 +779,8 @@ figure{
     cursor: pointer;
 }
 .contenidoCompartido{
-    width: auto;
+    width: 100%;
+    overflow: hidden;
 }
 .contenidoCompartido img{
     width: 100%;
@@ -806,7 +808,6 @@ figure{
     border-radius: 50%;
     width: 50px;
     height: 50px;
-    cursor: pointer;
     border: 2px solid #844124;
     background-repeat:no-repeat;
     background-size: cover;   
@@ -1085,9 +1086,9 @@ footer{
     .seccionIngreso i{
         font-size: 30px;
     }
-    .botonesDelPerfil {
+    /* .botonesDelPerfil {
         display: block;
-    }
+    } */
     .cuerpoPerfil .usuarioPost {
         justify-content: space-between;
     }

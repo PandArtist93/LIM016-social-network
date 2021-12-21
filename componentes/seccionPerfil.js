@@ -1,10 +1,12 @@
+/* eslint-disable no-alert */
 import {
   obtenerUserPosts, eliminarPost, actualizarPost, obtenerUsuarios,
 } from '../firebase/funcionesFirestore.js';
 import { btnLikes1 } from './categorias.js';
 import { validateSessionStorage } from './validaciones.js';
 
-const subirContainer = (idPost, dataCreador, dataPost) => {
+// Render del post segun el usuario
+const postsUsuario = (idPost, dataCreador, dataPost) => {
   const divPost = document.createElement('div');
   divPost.classList.add('tableroPost');
 
@@ -32,24 +34,30 @@ const subirContainer = (idPost, dataCreador, dataPost) => {
   return divPost;
 };
 
+// Funcionalidad de bototn Eliminar post
 export const btnEliminarPost = () => {
   const postsCards = document.getElementsByClassName('usuarioPost');
   Array.from(postsCards).forEach((postCard) => {
     const btnEliminar = postCard.querySelector('.btnDelete');
     btnEliminar.addEventListener('click', async () => {
       const confirmarcion = window.confirm('¿Esta seguro que quiere eliminar el post?');
+      // se utilizo confirm para corroborar que el usuario queria borrar el post
       if (!confirmarcion) {
+        // si la confirmacion es falsa, no hace nada, de lo contrario borra el post
         return;
       }
       const postEliminado = document.getElementById(postCard.id);
       await eliminarPost(postCard.id);
-      console.log('si elimino el post');
+      // console.log('si elimino el post');
+      // una vez eliminado el post en firestore se elimina el post en la interfaz
       postEliminado.parentElement.remove();
     });
   });
 };
 
+// Funcion que se encarga de editar el post
 const editarPost = (postCard) => {
+  // renderizando el formulario que se requiere para ingresar los datosque se desean cambiar
   const formularioEditar = document.createElement('form');
   formularioEditar.classList.add('editForm');
   formularioEditar.innerHTML = `
@@ -69,7 +77,7 @@ const editarPost = (postCard) => {
   // borramos el texto y agregamos el formulario de edicion
   estadoCompartido.innerHTML = '';
   estadoCompartido.appendChild(formularioEditar);
-
+  // formulario tiene dos botones de guardar o cancelar cambios
   botonCancelarCambios.addEventListener('click', (e) => {
     e.preventDefault();
     estadoCompartido.innerHTML = '';
@@ -83,7 +91,7 @@ const editarPost = (postCard) => {
     const changedText = form.firstElementChild.value;
     actualizarPost(postId, changedText)
       .then(() => {
-        console.log('sabemos si funciono');
+        // console.log('sabemos si funciono');
         contenidoCompartido.firstElementChild.textContent = changedText;
         estadoCompartido.innerHTML = '';
         estadoCompartido.appendChild(contenidoCompartido);
@@ -91,6 +99,7 @@ const editarPost = (postCard) => {
   });
 };
 
+// Funcionalidad del boton editar post
 export const btnEditarPost = () => {
   const postsCards = document.getElementsByClassName('tableroPost');
   Array.from(postsCards).forEach((postCard) => {
@@ -101,13 +110,14 @@ export const btnEditarPost = () => {
   });
 };
 
+// Funcion para cargar post por usuario a su seccion perfil
 const rellenarPerfil = async (containerPost) => {
   const userData = JSON.parse(sessionStorage.userSession);
   const usuarios = await obtenerUsuarios();
   const datosPost = await obtenerUserPosts();
   datosPost.forEach((post) => {
     const dataCreador = usuarios.filter((user) => user.userId === post.usuarioId);
-    containerPost.prepend(subirContainer(post.id, dataCreador[0], post));
+    containerPost.prepend(postsUsuario(post.id, dataCreador[0], post));
     if (post.likes.includes(userData.id)) {
       document.getElementsByName(post.id)[0].style.color = 'red';
     }
@@ -117,6 +127,7 @@ const rellenarPerfil = async (containerPost) => {
   btnEditarPost();
 };
 
+// Render de la seccion contenido Perfil
 export const contenidoPerfil = () => {
   const perfilSeccion = document.createElement('section');
   perfilSeccion.classList.add('cuerpoPerfil');

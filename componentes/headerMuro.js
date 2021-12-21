@@ -1,6 +1,7 @@
 import { cierreActividadUsuario } from '../firebase/funcionesAuth.js';
 import { validateSessionStorage } from './validaciones.js';
 
+// Renderizando el header
 export const contenidoHeader = () => {
   const userData = validateSessionStorage();
   const headerMuro = `
@@ -23,22 +24,23 @@ export const contenidoHeader = () => {
   return headerMuro;
 };
 
+// Funcion de boton cerrar sesion, limpiando el sessionStorage
+// redirige a inicio
 export const cerrarSesion = () => {
   const btnCerrarSesion = document.getElementById('cerrar-sesion');
   btnCerrarSesion.addEventListener('click', () => {
     cierreActividadUsuario()
       .then(() => {
-        // Sign-out successful.
         sessionStorage.clear();
         window.location.hash = '#/inicio';
       }).catch((error) => {
-        // An error happened.
         // eslint-disable-next-line no-console
         console.log(error);
       });
   });
 };
 
+// Funcionalidad de menu puntos verticales
 export const menuPuntosVerticales = () => {
   const puntosVerticales = document.querySelector('.puntosVerticales');
   const middle = document.querySelector('.middle');
@@ -52,6 +54,7 @@ export const menuPuntosVerticales = () => {
   });
 };
 
+// Renderizando modal categorias
 export const seccionModal = () => {
   const seccionModalCategoria = `<section class="seccionModal">
     <div class="tituloModal">
@@ -84,6 +87,7 @@ export const seccionModal = () => {
   return seccionModalCategoria;
 };
 
+// funcionalidad de modal categorias
 export const modalCategorias = () => {
   const modalCategoria = document.querySelector('.modalCategoria');
   const abrirModal = document.querySelector('.abrirModal');

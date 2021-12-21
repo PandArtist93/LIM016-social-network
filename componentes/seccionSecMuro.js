@@ -4,7 +4,8 @@ import {
 import { subirFileStorage } from '../firebase/funcionesStorage.js';
 import { validateSessionStorage } from './validaciones.js';
 
-export const subirContainer = (idPost, dataPost, dataCreador) => {
+// Renderizar todos los posts
+export const renderPost = (idPost, dataPost, dataCreador) => {
   const divTablero = document.createElement('div');
   divTablero.classList.add('tableroPost');
 
@@ -31,27 +32,35 @@ export const subirContainer = (idPost, dataPost, dataCreador) => {
   return divTablero;
 };
 
+// Reconoce todos los botones likes de cada publicacion
 export const btnLikes = () => {
-  const postsCards = document.getElementsByClassName('botonesReaccion');
+  const botonesPost = document.getElementsByClassName('botonesReaccion');
 
-  Array.from(postsCards).forEach((postCard) => {
-    const btnLike = postCard.querySelector('.like');
+  // Busca donde se encuentra el target de reaccion en este caso 'like'
+  Array.from(botonesPost).forEach((botonPost) => {
+    const btnLike = botonPost.querySelector('.like');
+    const userData = JSON.parse(sessionStorage.userSession);
+
+    // Reconoce al boton y contador que se encuentra a lado
     btnLike.addEventListener('click', async () => {
-      const hijo = btnLike.getAttribute('name');
-      const userData = JSON.parse(sessionStorage.userSession);
-      const veamos = await obtenerById(hijo, 'posts');
-
-      if (veamos.likes.includes(userData.id)) {
-        subirLikes(hijo, veamos.likes.filter((item) => item !== userData.id));
+      // se encuentra el id del post que esta asociado al atributo name y guardado en el idLike
+      const idLike = btnLike.getAttribute('name');
+      const dataPost = await obtenerById(idLike, 'posts');
+      // verificando si el id del usuario esta en el array de likes de cada post
+      if (dataPost.likes.includes(userData.id)) {
+        // esto es para quitar el like por usuario
+        subirLikes(idLike, dataPost.likes.filter((item) => item !== userData.id));
         btnLike.style.color = '#8F7D7D';
       } else {
-        subirLikes(hijo, [...veamos.likes, userData.id]);
+        // esto es para agregar like por usuario
+        subirLikes(idLike, [...dataPost.likes, userData.id]);
         btnLike.style.color = 'red';
       }
     });
   });
 };
 
+// Muestra todos los posts en muro/timeline principal
 const rellenarHome = async (conteinerPost) => {
   const userData = JSON.parse(sessionStorage.userSession);
   const usuarios = await obtenerUsuarios();
@@ -59,8 +68,8 @@ const rellenarHome = async (conteinerPost) => {
     querySnapshot.docChanges().forEach((change) => {
       if (change.type === 'added') {
         const creadorPost = usuarios.filter((user) => user.userId === change.doc.data().usuarioId);
-        //console.log(creadorPost[0]);
-        conteinerPost.prepend(subirContainer(change.doc.id, change.doc.data(), creadorPost[0]));
+        // console.log(creadorPost[0]);
+        conteinerPost.prepend(renderPost(change.doc.id, change.doc.data(), creadorPost[0]));
 
         if (change.doc.data().likes.includes(userData.id)) {
           document.getElementsByName(change.doc.id)[0].style.color = 'red';
@@ -88,6 +97,7 @@ const rellenarHome = async (conteinerPost) => {
   });
 };
 
+// Renderizando barra de navegacion inferior, tablero compartir y contenedor categorias
 export const seccionMuro2 = () => {
   const segundaSeccion = document.createElement('section');
   segundaSeccion.classList.add('item3');
@@ -186,15 +196,16 @@ export const seccionMuro2 = () => {
   return segundaSeccion;
 };
 
+// Funcionalidad para la creacion de posts con texto y/o imagen
 export const creacionPost = (formCompartir) => {
   const divCompartir = document.getElementById(formCompartir);
-
-  let urlImg = [];
+  // eleccion del archivo que quiere subir el usuario
+  let archivoLocal = [];
   const btnImg = document.getElementById('compartirImg');
   btnImg.addEventListener('change', async (e) => {
-    urlImg.push(e.target.files[0]);
+    archivoLocal.push(e.target.files[0]);
   });
-
+  // eleccion de la categoria donde quiere subir el post el usuario
   let categoriaSelect = [];
   const botonSelector = document.getElementById('Grupo');
   botonSelector.addEventListener('change', (e) => {
@@ -206,19 +217,16 @@ export const creacionPost = (formCompartir) => {
     let categoria = categoriaSelect[categoriaSelect.length - 1];
     const postTxt = document.getElementById('inputCompartir').value;
     const userData = JSON.parse(sessionStorage.userSession);
-    if (categoria === undefined) categoria = 'inicio';
-    if (urlImg.length === 0) {
+    if (categoria === undefined) categoria = 'inicio'; // si no elegi categoria lo manda por defecto a home
+    if (archivoLocal.length === 0) {
+      // si no se elige ningun archivo se manda vacio
       await subirDataHomeCol(userData.id, postTxt, categoria, '');
-      /* .then((doc) => {
-        obtenerById(doc.id,'posts').then((postsById) => {
-          containerPosts.prepend(subirContainer(doc.id, postsById, ''));
-        });
-      }); */
       categoriaSelect = [];
       divCompartir.reset();
     } else {
-      const archivo = await subirFileStorage(urlImg[urlImg.length - 1], 'imgPosts');
-      await subirDataHomeCol(userData.id, postTxt, categoria, archivo);
+      // obtencion de la url del archivo subido desde el storage
+      const urlImagen = await subirFileStorage(archivoLocal[archivoLocal.length - 1], 'imgPosts');
+      await subirDataHomeCol(userData.id, postTxt, categoria, urlImagen);
       /* .then((doc) => {
         obtenerById(doc.id, 'posts').then((postsById) => {
           containerPosts.prepend(subirContainer(doc.id, postsById, ''));
@@ -226,7 +234,7 @@ export const creacionPost = (formCompartir) => {
       }); */
       categoriaSelect = [];
       divCompartir.reset();
-      urlImg = [];
+      archivoLocal = [];
     }
   });
 };

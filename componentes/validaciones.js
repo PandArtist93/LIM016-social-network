@@ -1,5 +1,6 @@
 import { estadoAuthUsuario } from '../firebase/funcionesAuth.js';
 
+// Funcion que permite al usuario ingresar solo si esta logueado
 export const userState = () => {
   estadoAuthUsuario((user) => {
     if (user === null || user === undefined) {
@@ -8,6 +9,7 @@ export const userState = () => {
   });
 };
 
+// Funcion para llamar al sessionStorage
 export const validateSessionStorage = () => {
   let userData = sessionStorage.getItem('userSession');
   // console.log(userData);

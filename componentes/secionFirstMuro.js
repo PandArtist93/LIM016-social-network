@@ -1,5 +1,6 @@
 import { validateSessionStorage } from './validaciones.js';
 
+// Renderizando de la seccion de datos del usuario y categorias de version desktop
 export const seccionMuro1 = () => {
   const primeraSeccion = document.createElement('section');
   primeraSeccion.classList.add('item2');

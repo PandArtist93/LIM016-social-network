@@ -1,4 +1,4 @@
-import { componentes } from '../lib/index.js';
+import { fondoHome } from '../componentes/home.js';
 import { formRegistros, registroCorreo } from '../componentes/registro.js';
 import { formInicioSesion, inicioSesion } from '../componentes/inicioSesion.js';
 import {
@@ -10,19 +10,19 @@ import {
 import { cerrarSesion, menuPuntosVerticales, modalCategorias } from '../componentes/headerMuro.js';
 import { userState } from '../componentes/validaciones.js';
 import { creacionPost } from '../componentes/seccionSecMuro.js';
-import { btnEditarPerfil /* subiendoImg */ } from '../componentes/seccionEditarPerfil.js';
+import { btnEditarPerfil } from '../componentes/seccionEditarPerfil.js';
 
 export const vistasPantalla = () => {
   const main = document.getElementById('main');
   main.innerHTML = '';
   switch (window.location.hash.toLowerCase()) {
     case '': case '#/': case '#/inicio':
-      main.appendChild(componentes.fondoHome(formInicioSesion()));
+      main.appendChild(fondoHome(formInicioSesion()));
       inicioSesion('formIngreso', 'ubicacionModal');
       break;
 
     case '#/registro':
-      main.appendChild(componentes.fondoHome(formRegistros()));
+      main.appendChild(fondoHome(formRegistros()));
       registroCorreo('formRegistro', 'ubicacionModal');
       break;
 
