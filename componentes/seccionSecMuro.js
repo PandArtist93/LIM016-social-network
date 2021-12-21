@@ -59,7 +59,7 @@ const rellenarHome = async (conteinerPost) => {
     querySnapshot.docChanges().forEach((change) => {
       if (change.type === 'added') {
         const creadorPost = usuarios.filter((user) => user.userId === change.doc.data().usuarioId);
-        console.log(creadorPost[0]);
+        //console.log(creadorPost[0]);
         conteinerPost.prepend(subirContainer(change.doc.id, change.doc.data(), creadorPost[0]));
 
         if (change.doc.data().likes.includes(userData.id)) {

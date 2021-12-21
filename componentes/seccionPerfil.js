@@ -156,7 +156,7 @@ export const contenidoPerfil = () => {
   tableroInformacionUsuario.classList.add('fondo1');
   tableroInformacionUsuario.innerHTML = `
         <div class="fondoImagenPerfil">
-            <img src="imagenes/ImgDelUsuario.png">
+            <img src="${userData.imgPortada}">
         </div>
         <div class="fondo2">
             <div class="imgPerfilUsuario">

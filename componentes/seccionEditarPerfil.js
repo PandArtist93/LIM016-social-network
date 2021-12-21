@@ -39,7 +39,7 @@ export const contenidoEditarPerfil = () => {
                 <div class="modalContent modalClose" id="modal">
                     <div class="cajaSuperior">
                         <div class="fondoImagenSecPerfil">
-                            <img src="imagenes/ImgDelUsuario.png">
+                            <img id="imgPortadaUsuario"src="${userData.imgPortada}">
                         </div>
                         <div class="infActualDelUsuario" id="infActualDelUsuario">
                             <div class="imgPerfilUsuario">
@@ -64,23 +64,28 @@ export const contenidoEditarPerfil = () => {
                             </div>
 
                             <div class="cajaImputDatos">
+                                <p class="textSeccActualizacion">Foto de portada:</p>
+                                <input type="file" id="ImgPortadaUpdate" class="datosParaActualizar"></input>
+                            </div>
+
+                            <div class="cajaImputDatos">
                                 <p class="textSeccActualizacion" id="">Usuario:</p>
-                                <input type="text" id="actualizacionUsuario" class="datosParaActualizar" autocapitalize="sentence">
+                                <input type="text" id="actualizacionUsuario" class="datosParaActualizar" autocapitalize="sentence" value="${userData.username}">
                             </div>
 
                             <div class="cajaImputDatos">
                                 <p class="textSeccActualizacion" id="">Nombre:</p>
-                                <input type="text" id="actualizacionNombre" class="datosParaActualizar" autocapitalize="sentence">
+                                <input type="text" id="actualizacionNombre" class="datosParaActualizar" autocapitalize="sentence" value="${userData.name}">
                             </div>
 
                             <div class="cajaImputDatos">
                                 <p class="textSeccActualizacion" id="">Estado:</p>
-                                <input type="text" id="actualizacionEstado" class="datosParaActualizar" autocapitalize="sentence">
+                                <input type="text" id="actualizacionEstado" class="datosParaActualizar" autocapitalize="sentence" value="${userData.descripcion}">
                             </div>
 
                             <div class="cajaImputDatos">
                                 <p class="textSeccActualizacion">Ubicación:</p>
-                                <input type="text" id="actualizacionUbicacion" class="datosParaActualizar" autocapitalize="sentence">
+                                <input type="text" id="actualizacionUbicacion" class="datosParaActualizar" autocapitalize="sentence" value="${userData.ubicacion}">
                             </div>
                             <div class="botonesFormularios">
                                 <button type="submit" id="guardarCambios" class="guardarCambios">Guardar Cambios</button>  
@@ -96,25 +101,33 @@ export const contenidoEditarPerfil = () => {
   return EditarSeccion;
 };
 
-export const actualizarDatosPerfil = (username, name, ubicacion, descripcion, imgusuario) => {
+export const actualizarDatosPerfil = (username, name, ubicacion, descripcion, imgusuario, imgportada) => {
   const nombreDelUsuario = document.getElementById('nombreDelUsuario');
   const nombreDelPerfil = document.getElementById('nombreDelPerfil');
   const ubicacionDelPerfil = document.getElementById('ubicacionDelPerfil');
   const descripcionDelPerfil = document.getElementById('descripcionDelPerfil');
   const imgUsuario = document.getElementById('imgUsuario');
+  const imgPortada = document.getElementById('imgPortadaUsuario');
   nombreDelUsuario.innerHTML = username;
   nombreDelPerfil.innerHTML = name;
   ubicacionDelPerfil.innerHTML = ubicacion;
   descripcionDelPerfil.innerHTML = descripcion;
   imgUsuario.src = imgusuario;
+  imgPortada.src = imgportada;
 };
 
 export const btnEditarPerfil = () => {
   const btnGuardarCambios = document.getElementById('guardarCambios');
   const btnArchivoLocal = document.getElementById('selbtn');
+  const btnArchivoLocalPortada = document.getElementById('ImgPortadaUpdate');
   const urlImgUsuario = [];
+  const urlImgPortada = [];
   btnArchivoLocal.addEventListener('change', (e) => {
     urlImgUsuario.push(e.target.files[0]);
+   
+  });
+  btnArchivoLocalPortada.addEventListener('change', (e) => {
+    urlImgPortada.push(e.target.files[0]);
   });
   btnGuardarCambios.addEventListener('click', async (e) => {
     e.preventDefault();
@@ -124,7 +137,8 @@ export const btnEditarPerfil = () => {
     const inputUbicacionActualizado = document.getElementById('actualizacionUbicacion').value;
     const userData = JSON.parse(sessionStorage.userSession);
     const archivo = await subirFileStorage(urlImgUsuario[urlImgUsuario.length - 1], 'imgUsuarios');
-    console.log(archivo);
+    const archivoPortada = await subirFileStorage(urlImgPortada[urlImgPortada.length - 1], 'imgPortada');
+    console.log(archivoPortada);
     actualizarPerfil(
       userData.id,
       inputNombreActualizado,
@@ -132,6 +146,7 @@ export const btnEditarPerfil = () => {
       inputUbicacionActualizado,
       inputDescripcionActualizado,
       archivo,
+      archivoPortada,
     )
       .then(() => {
         userData.username = inputusuarioActualizado;
@@ -139,6 +154,7 @@ export const btnEditarPerfil = () => {
         userData.ubicacion = inputUbicacionActualizado;
         userData.descripcion = inputDescripcionActualizado;
         userData.imgUsuario = archivo;
+        userData.imgPortada = archivoPortada;
         sessionStorage.setItem('userSession', JSON.stringify(userData));
         actualizarDatosPerfil(
           inputusuarioActualizado,
@@ -146,6 +162,7 @@ export const btnEditarPerfil = () => {
           inputUbicacionActualizado,
           inputDescripcionActualizado,
           archivo,
+          archivoPortada,
         );
       });
   });

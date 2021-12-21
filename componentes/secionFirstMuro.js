@@ -9,7 +9,7 @@ export const seccionMuro1 = () => {
   primeraSeccion.innerHTML = `
         <section class="secUsuario">
             <div class="contenedorPortada">
-                <img src="imagenes/ImgDelUsuario.png">
+                <img src="${userData.imgPortada}">
             </div>  
             <div class="contenedorPerfil">
                 <img src="${userData.imgUsuario}">
