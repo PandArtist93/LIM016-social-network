@@ -60,14 +60,14 @@ export const contenidoEditarPerfil = () => {
                     <div class="modalFormulario" id="modalFormulario">
                         <form id="formIngreso">
 
-                            <div class="cajaImputDatos">
+                            <div class="cajaImputDatosImg">
                                 <p class="textSeccActualizacion">Foto de perfil:</p>
-                                <input type="file" id="selbtn" class="datosParaActualizar"></input>
+                                <input type="file" id="selbtn" class="imgParaActualizar"></input>
                             </div>
 
-                            <div class="cajaImputDatos">
+                            <div class="cajaImputDatosImg">
                                 <p class="textSeccActualizacion">Foto de portada:</p>
-                                <input type="file" id="ImgPortadaUpdate" class="datosParaActualizar"></input>
+                                <input type="file" id="ImgPortadaUpdate" class="imgParaActualizar"></input>
                             </div>
 
                             <div class="cajaImputDatos">

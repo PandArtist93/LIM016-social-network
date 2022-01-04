@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
 import {
-  getFirestore,
+  db,
   collection,
   getDocs,
   getDoc,
@@ -13,11 +13,7 @@ import {
   serverTimestamp,
   deleteDoc,
   onSnapshot,
-  app,
 } from './config.js';
-
-// inicializa el firestore
-const db = getFirestore(app);
 
 // Obtener todos los documentos de la coleccion 'post' usando onsnapshot
 export const obtenerPosts = async (callback) => {
@@ -61,9 +57,9 @@ export const agregarDataUserFS = async (id, Username, Correo, Name, Descripcion,
 };
 
 // Subir data a la colección posts en firestore
-export const subirDataHomeCol = async (creadorPost, post, Categoria, urlImg) => {
+export const subirDataHomeCol = (creadorPost, post, Categoria, urlImg) => {
   const colRefPost = collection(db, 'posts');
-  const functionAdd = await addDoc(colRefPost, {
+  const functionAdd = addDoc(colRefPost, {
     usuarioId: creadorPost,
     publicacion: post,
     categoria: Categoria,

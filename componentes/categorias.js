@@ -7,6 +7,28 @@ import {
 } from '../firebase/funcionesFirestore.js';
 import { validateSessionStorage } from './validaciones.js';
 
+async function myEpicFunctionHandler(e) {
+  const btnLike = e.target;
+  const userData = JSON.parse(sessionStorage.userSession);
+
+  // se encuentra el id del post que esta asociado al atributo name y guardado en el idLike
+  const idLike = btnLike.getAttribute('name');
+  const contadorLike = btnLike.nextElementSibling;
+  const dataPost = await obtenerById(idLike, 'posts');
+  // verificando si el id del usuario esta en el array de likes de cada post
+  if (dataPost.likes.includes(userData.id)) {
+    // esto es para quitar el like por usuario
+    subirLikes(idLike, dataPost.likes.filter((item) => item !== userData.id));
+    contadorLike.textContent = dataPost.likes.length - 1;
+    btnLike.style.color = '#8F7D7D';
+  } else {
+    // esto es para agregar like por usuario
+    subirLikes(idLike, [...dataPost.likes, userData.id]);
+    contadorLike.textContent = dataPost.likes.length + 1;
+    btnLike.style.color = 'red';
+  }
+}
+
 // Reconoce todos los botones likes de cada publicacion
 export const btnLikes1 = () => {
   const botonesPost = document.getElementsByClassName('botonesReaccion');
@@ -14,27 +36,9 @@ export const btnLikes1 = () => {
   // Busca donde se encuentra el target de reaccion en este caso 'like'
   Array.from(botonesPost).forEach((botonPost) => {
     const btnLike = botonPost.querySelector('.like');
-    const userData = JSON.parse(sessionStorage.userSession);
 
     // Reconoce al boton y contador que se encuentra a lado
-    btnLike.addEventListener('click', async () => {
-      // se encuentra el id del post que esta asociado al atributo name y guardado en el idLike
-      const idLike = btnLike.getAttribute('name');
-      const contadorLike = btnLike.nextElementSibling;
-      const dataPost = await obtenerById(idLike, 'posts');
-      // verificando si el id del usuario esta en el array de likes de cada post
-      if (dataPost.likes.includes(userData.id)) {
-        // esto es para quitar el like por usuario
-        subirLikes(idLike, dataPost.likes.filter((item) => item !== userData.id));
-        contadorLike.textContent = dataPost.likes.length - 1;
-        btnLike.style.color = '#8F7D7D';
-      } else {
-        // esto es para agregar like por usuario
-        subirLikes(idLike, [...dataPost.likes, userData.id]);
-        contadorLike.textContent = dataPost.likes.length + 1;
-        btnLike.style.color = 'red';
-      }
-    });
+    btnLike.addEventListener('click', myEpicFunctionHandler);
   });
 };
 

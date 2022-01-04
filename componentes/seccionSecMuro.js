@@ -66,32 +66,35 @@ const rellenarHome = async (conteinerPost) => {
   const usuarios = await obtenerUsuarios();
   await obtenerPosts((querySnapshot) => {
     querySnapshot.docChanges().forEach((change) => {
-      if (change.type === 'added') {
-        const creadorPost = usuarios.filter((user) => user.userId === change.doc.data().usuarioId);
-        // console.log(creadorPost[0]);
-        conteinerPost.prepend(renderPost(change.doc.id, change.doc.data(), creadorPost[0]));
+      if (window.location.hash === '#/artmuro') {
+        if (change.type === 'added') {
+          // eslint-disable-next-line max-len
+          const creadorPost = usuarios.filter((user) => user.userId === change.doc.data().usuarioId);
+          // console.log(creadorPost[0]);
+          conteinerPost.prepend(renderPost(change.doc.id, change.doc.data(), creadorPost[0]));
 
-        if (change.doc.data().likes.includes(userData.id)) {
-          document.getElementsByName(change.doc.id)[0].style.color = 'red';
+          if (change.doc.data().likes.includes(userData.id)) {
+            document.getElementsByName(change.doc.id)[0].style.color = 'red';
+          }
+          /* console.log(change.doc.data().imgPost);
+          if (change.doc.data().imgPost === '') {
+            const containerImg = document.getElementsByClassName('imgPost');
+            Array.from(containerImg).forEach((each) => {
+              console.log(each);
+            });
+          } */
+          btnLikes();
         }
-        /* console.log(change.doc.data().imgPost);
-        if (change.doc.data().imgPost === '') {
-          const containerImg = document.getElementsByClassName('imgPost');
-          Array.from(containerImg).forEach((each) => {
-            console.log(each);
-          });
-        } */
-        btnLikes();
-      }
-      if (change.type === 'modified') {
-        const btnLike = document.getElementsByName(change.doc.id);
-        const hermano = btnLike[0].nextElementSibling;
-        hermano.textContent = change.doc.data().likes.length;
-        btnLikes();
-      }
-      if (change.type === 'removed') {
-        /* const postEliminado = document.getElementById(change.doc.id);
-        postEliminado.parentElement.remove(); */
+        if (change.type === 'modified') {
+          const btnLike = document.getElementsByName(change.doc.id);
+          const hermano = btnLike[0].nextElementSibling;
+          hermano.textContent = change.doc.data().likes.length;
+          btnLikes();
+        }
+        if (change.type === 'removed') {
+          /* const postEliminado = document.getElementById(change.doc.id);
+          postEliminado.parentElement.remove(); */
+        }
       }
     });
   });

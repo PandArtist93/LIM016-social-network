@@ -71,7 +71,6 @@ export const modalInicioSesion = {
         <p>Aún no estas registrado.</p>
       </div>
     `;
-
     return errorMensaje;
   },
 };

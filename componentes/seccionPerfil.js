@@ -66,7 +66,7 @@ const editarPost = (postCard) => {
         <button class="botonGuardarCambios">Guardar</button>
         <button class="botonCancelarCambios">Cancelar</button>  
     </div>
-`;
+  `;
   const botonGuardarCambios = formularioEditar.querySelector('.botonGuardarCambios');
   const botonCancelarCambios = formularioEditar.querySelector('.botonCancelarCambios');
   const estadoCompartido = postCard.querySelector('.estadoCompartido');

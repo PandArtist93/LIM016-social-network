@@ -383,7 +383,8 @@ header{
     padding: 1vh 0;
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    /* align-items: center; */
+    align-items: flex-start;
     margin-top: 2%;
 }
 .botonCompartirImagen{
@@ -404,6 +405,7 @@ header{
     min-width: 95px;
     height: 6vh;
     cursor: pointer;
+    text-shadow: 1px 1px rgb(119, 114, 114);
 }
 .tableroCompartir select{
     background-color: #F0AA70;
@@ -418,6 +420,7 @@ header{
     height: 6vh;
     cursor: pointer;
     text-align: center;
+    text-shadow: 1px 1px rgb(119, 114, 114);
 }
 .container-post{
     width: auto;
@@ -566,6 +569,7 @@ header{
     align-items: center;
     padding: 3px;
     margin-top: 15px;
+    text-shadow: 1px 1px rgb(119, 114, 114);
 }
 .btnInicio a, .btnEditar a{
     text-decoration: none;
@@ -681,16 +685,14 @@ header{
     box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.35);
     padding: 0 2%;
 }
-#selbtn, #ImgPortadaUpdate{
-    /* display: flex; */
+/* #selbtn, #ImgPortadaUpdate{
     width: 100%;
     height: 30%;
     min-height: 32px;
-    /* margin: 2% 0; */
     border: transparent;
     border-radius: 0;
     box-shadow: none;
-}
+} */
 #imgUsuario {
     height: 100px;
     width: 100px;
@@ -970,6 +972,11 @@ footer{
         height: 40px;
         min-height: 40px;
     }
+    .botones input{
+        font-size: 15px;
+        height: 30px;
+        min-height: 30px;
+    }
 }
 @media screen and (max-width:785px){
     /* .datosIngreso{
@@ -1111,6 +1118,7 @@ footer{
         align-items: center;
         padding: 3px;
         margin-top: 15px;
+        text-shadow: 1px 1px rgb(119, 114, 114);
     }
     .botonesDelPerfil{
         display: none;
@@ -1270,11 +1278,15 @@ footer{
     }
 }
 .botones input{
-    display: flex;
+    /* display: flex; */
     align-items: center;
-    width: 40%;
-    height: auto;
+    width: 29%;
+    height: 55px;
+    /* height: auto; */
     border-radius: 0;
+    padding: 0 8px 0 0;
+    
+
 }
 .editForm{
     display: flex;
@@ -1312,3 +1324,78 @@ footer{
     padding: 3px;
 }
 
+.cajaImputDatosImg{
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    height: auto;
+    padding: 2% 5%;
+    justify-content: center;
+    align-items: center;
+    background-color: #F4DCB6;
+    border: transparent;
+    border-radius: 10px;
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.35);
+    margin: 2.5%;
+}
+.cajaImputDatosImg input{
+    display: flex;
+    justify-content: center;
+}
+.imgParaActualizar::-webkit-file-upload-button {
+    visibility: hidden;
+}
+
+.imgParaActualizar::before {
+    content: 'Selecciona una imagen';
+    display: flex;
+    background-color: #F0AA70;
+    box-shadow: 4px 4px 10px rgb(0 0 0 / 35%);
+    color:white;
+    align-items: center;
+    justify-content: space-around;
+    height: 30%;
+    width: 90%;
+    border-color: transparent;
+    border-radius: 7px;
+    padding: 2%;
+    margin: 2%;
+    outline: none;
+    white-space: nowrap;
+    -webkit-user-select: none;
+    cursor: pointer;
+    text-shadow: 1px 1px rgb(119, 114, 114);
+    font-weight: 700;
+    font-size: 13px;
+}
+#selbtn, #ImgPortadaUpdate{
+    width: 100%;
+    height: 80px;
+}
+#compartirImg::-webkit-file-upload-button {
+    visibility: hidden;
+}
+#compartirImg::before{
+    content: 'Imagen';
+    display: flex;
+    background-color: #F0AA70;
+    box-shadow: 4px 4px 10px rgb(0 0 0 / 35%);
+    color:white;
+    align-items: center;
+    justify-content: center;
+    height: 39px;
+    /* width: 29%; */
+    min-width: 95px;
+    border-color: transparent;
+    border-radius: 10px;
+    padding: 2%;
+    /* margin: 2%; */
+    outline: none;
+    white-space: nowrap;
+    -webkit-user-select: none;
+    cursor: pointer;
+    text-shadow: 1px 1px rgb(119, 114, 114);
+    font-weight: 600;
+    font-size: 16px;
+    overflow: hidden;
+}
