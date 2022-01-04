@@ -56,6 +56,8 @@ export const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 // inicializa el firestore
 export const db = getFirestore(app);
+// inicializa el storage
+export const storage = getStorage(app);
 //
 const proveedor = new GoogleAuthProvider();
 const proveedorFB = new FacebookAuthProvider();

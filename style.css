@@ -403,9 +403,11 @@ header{
     font-weight: 600;
     width: 29%;
     min-width: 95px;
-    height: 6vh;
+    /* height: 6vh; */
+    height: 45px;
     cursor: pointer;
     text-shadow: 1px 1px rgb(119, 114, 114);
+    margin-right: 8px;
 }
 .tableroCompartir select{
     background-color: #F0AA70;
@@ -417,10 +419,12 @@ header{
     font-size: 17px;
     font-weight: 600;
     min-width: 95px;
-    height: 6vh;
+    /* height: 6vh; */
+    height: 45px;
     cursor: pointer;
     text-align: center;
     text-shadow: 1px 1px rgb(119, 114, 114);
+    margin-right: 8px;
 }
 .container-post{
     width: auto;
@@ -904,6 +908,131 @@ footer{
 .list{
     display: flex;
 }
+
+/* estilos de los botones input*/
+.botones input{
+    /* display: flex; */
+    align-items: center;
+    width: 29%;
+    min-width: 100px;
+    height: 51px;
+    /* height: auto; */
+    border-radius: 0;
+    padding: 0 8px 0 0;
+    
+
+}
+.editForm{
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+}
+.editFormt textarea{    
+    width: 100%;
+    height: 15vh;
+    border-color: transparent;
+    border-radius: 10px;
+}
+.secBtnEditarPost{
+    display: flex;
+    margin: 2% 0;
+    justify-content: space-around;
+}
+.botonGuardarCambios, .botonCancelarCambios{
+    display: flex;
+    background-color: #F0AA70;
+    border-radius: 0;
+    box-shadow: 4px 4px 10px rgb(0 0 0 / 35%);
+    border-color: transparent;
+    overflow: hidden;
+    justify-content: center;
+    width: 40%;
+    min-width: 102px;
+    color:white;
+    font-weight: 600;
+    font-size: 14px;
+    max-width: 160px;
+    height: 6vh;
+    cursor: pointer;
+    align-items: center;
+    padding: 3px;
+}
+
+.cajaImputDatosImg{
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    height: auto;
+    padding: 2% 5%;
+    justify-content: center;
+    align-items: center;
+    background-color: #F4DCB6;
+    border: transparent;
+    border-radius: 10px;
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.35);
+    margin: 2.5%;
+}
+.cajaImputDatosImg input{
+    display: flex;
+    justify-content: center;
+}
+.imgParaActualizar::-webkit-file-upload-button {
+    visibility: hidden;
+}
+
+.imgParaActualizar::before {
+    content: 'Selecciona una imagen';
+    display: flex;
+    background-color: #F0AA70;
+    box-shadow: 4px 4px 10px rgb(0 0 0 / 35%);
+    color:white;
+    align-items: center;
+    justify-content: space-around;
+    height: 30%;
+    width: 90%;
+    border-color: transparent;
+    border-radius: 7px;
+    padding: 2%;
+    margin: 2%;
+    outline: none;
+    white-space: nowrap;
+    -webkit-user-select: none;
+    cursor: pointer;
+    text-shadow: 1px 1px rgb(119, 114, 114);
+    font-weight: 700;
+    font-size: 13px;
+}
+#selbtn, #ImgPortadaUpdate{
+    width: 100%;
+    height: 80px;
+}
+#compartirImg::-webkit-file-upload-button {
+    visibility: hidden;
+}
+#compartirImg::before{
+    content: 'Imagen';
+    display: flex;
+    background-color: #F0AA70;
+    box-shadow: 4px 4px 10px rgb(0 0 0 / 35%);
+    color:white;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    /* width: 29%; */
+    min-width: 95px;
+    border-color: transparent;
+    border-radius: 10px;
+    padding: 2%;
+    /* margin: 2%; */
+    outline: none;
+    white-space: nowrap;
+    -webkit-user-select: none;
+    cursor: pointer;
+    text-shadow: 1px 1px rgb(119, 114, 114);
+    font-weight: 600;
+    font-size: 16px;
+    /* overflow: hidden; */
+}
 /*----------------------------------------------------MEDIA QUERIES---------------------------------------------*/
 /*---------------responsive de la primera vista-----------------*/
 @media (max-width: 1160px) {
@@ -969,15 +1098,16 @@ footer{
     }
     .tableroCompartir select, .tableroCompartir .botonCompartir{
         font-size: 15px;
-        height: 40px;
+        height: 45px;
         min-height: 40px;
+        margin-right: 8px;
     }
-    .botones input{
+    /* .botones input{
         font-size: 15px;
         height: 30px;
         min-height: 30px;
     }
-}
+} */
 @media screen and (max-width:785px){
     /* .datosIngreso{
         font-size: 14px;
@@ -1194,20 +1324,27 @@ footer{
         min-width: 70px;
     }
     .tableroCompartir select, .tableroCompartir .botonCompartir{
-        width: 70px;
+        width: 100px;
         font-size: 13px;
         min-width: 70px;
-        height: 35px;
+        height: 45px;
         min-height: 35px;
+    }
+    #compartirImg::before{
+        font-size: 13px;
     }
 }
 @media screen and (max-width: 385px){
     .tableroCompartir select, .tableroCompartir .botonCompartir{
-        width: 70px;
+        /* width: 90px; */
         font-size: 12px;
         min-width: 70px;
-        height: 35px;
+        height: 44px;
         min-height: 35px;
+    }
+    #compartirImg::before{
+        min-width: 95px;
+        margin-right: 8px;
     }
 } 
 @media screen and (max-width: 360px){
@@ -1224,6 +1361,11 @@ footer{
     .imgPerfilUsuario img {
         width: 90px;
         height: 90px;
+    }
+    #compartirImg::before{
+        font-size: 12px;
+        min-width: none;
+        width: 84px;
     }
 }
 @media screen and (max-width: 320px){
@@ -1276,126 +1418,7 @@ footer{
     .btnEditar{
         height: 10vh;
     }
-}
-.botones input{
-    /* display: flex; */
-    align-items: center;
-    width: 29%;
-    height: 55px;
-    /* height: auto; */
-    border-radius: 0;
-    padding: 0 8px 0 0;
-    
-
-}
-.editForm{
-    display: flex;
-    flex-direction: column;
-    width: 90%;
-}
-.editFormt textarea{    
-    width: 100%;
-    height: 15vh;
-    border-color: transparent;
-    border-radius: 10px;
-}
-.secBtnEditarPost{
-    display: flex;
-    margin: 2% 0;
-    justify-content: space-around;
-}
-.botonGuardarCambios, .botonCancelarCambios{
-    display: flex;
-    background-color: #F0AA70;
-    border-radius: 0;
-    box-shadow: 4px 4px 10px rgb(0 0 0 / 35%);
-    border-color: transparent;
-    overflow: hidden;
-    justify-content: center;
-    width: 40%;
-    min-width: 102px;
-    color:white;
-    font-weight: 600;
-    font-size: 14px;
-    max-width: 160px;
-    height: 6vh;
-    cursor: pointer;
-    align-items: center;
-    padding: 3px;
-}
-
-.cajaImputDatosImg{
-    display: flex;
-    flex-direction: column;
-    width: 80%;
-    height: auto;
-    padding: 2% 5%;
-    justify-content: center;
-    align-items: center;
-    background-color: #F4DCB6;
-    border: transparent;
-    border-radius: 10px;
-    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.35);
-    margin: 2.5%;
-}
-.cajaImputDatosImg input{
-    display: flex;
-    justify-content: center;
-}
-.imgParaActualizar::-webkit-file-upload-button {
-    visibility: hidden;
-}
-
-.imgParaActualizar::before {
-    content: 'Selecciona una imagen';
-    display: flex;
-    background-color: #F0AA70;
-    box-shadow: 4px 4px 10px rgb(0 0 0 / 35%);
-    color:white;
-    align-items: center;
-    justify-content: space-around;
-    height: 30%;
-    width: 90%;
-    border-color: transparent;
-    border-radius: 7px;
-    padding: 2%;
-    margin: 2%;
-    outline: none;
-    white-space: nowrap;
-    -webkit-user-select: none;
-    cursor: pointer;
-    text-shadow: 1px 1px rgb(119, 114, 114);
-    font-weight: 700;
-    font-size: 13px;
-}
-#selbtn, #ImgPortadaUpdate{
-    width: 100%;
-    height: 80px;
-}
-#compartirImg::-webkit-file-upload-button {
-    visibility: hidden;
-}
-#compartirImg::before{
-    content: 'Imagen';
-    display: flex;
-    background-color: #F0AA70;
-    box-shadow: 4px 4px 10px rgb(0 0 0 / 35%);
-    color:white;
-    align-items: center;
-    justify-content: center;
-    height: 39px;
-    /* width: 29%; */
-    min-width: 95px;
-    border-color: transparent;
-    border-radius: 10px;
-    padding: 2%;
-    /* margin: 2%; */
-    outline: none;
-    white-space: nowrap;
-    -webkit-user-select: none;
-    cursor: pointer;
-    text-shadow: 1px 1px rgb(119, 114, 114);
-    font-weight: 600;
-    font-size: 16px;
-    overflow: hidden;
+    #compartirImg::before{
+        font-size: 12px;
+    }
 }

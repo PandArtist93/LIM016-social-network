@@ -36,9 +36,9 @@ export const obtenerUsuarios = async () => {
 };
 
 // Obtener la data de cada usuaruo guardado en Firestore, lo buscamos por id
-export const obtenerById = async (idUser, nameColeccion) => {
+export const obtenerById = (idUser, nameColeccion) => {
   const docRef = doc(db, nameColeccion, idUser);
-  const querySnapshot = await getDoc(docRef).then((docs) => docs.data());
+  const querySnapshot = getDoc(docRef).then((docs) => docs.data());
   return querySnapshot;
 };
 
