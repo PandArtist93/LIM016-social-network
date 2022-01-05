@@ -919,8 +919,8 @@ footer{
     /* height: auto; */
     border-radius: 0;
     padding: 0 8px 0 0;
-    
-
+    margin-right: 8px;
+    border-radius: 8px;
 }
 .editForm{
     display: flex;
