@@ -16,13 +16,14 @@ export const contenidoHeader = () => {
           <p class="equis"></p>
           <figure></figure>
           <ul class="desplegable">
-            <li><a id="tema"><img src="imagenes/bx-palette.png"><span>Tema</span></a></li>
             <li><a id="cerrar-sesion"><img src="imagenes/sign-out.png"><span>Cerrar Sesión</span></a></li>
           </ul>
         </div>
       `;
   return headerMuro;
 };
+// eslint-disable-next-line no-lone-blocks
+/* <li><a id="tema"><img src="imagenes/bx-palette.png"><span>Tema</span></a></li> */
 
 // Funcion de boton cerrar sesion, limpiando el sessionStorage
 // redirige a inicio
