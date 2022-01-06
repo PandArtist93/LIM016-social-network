@@ -111,6 +111,7 @@ export const agregarGoogleUser = (id, user) => {
     username: user.displayName,
     correo: user.email,
     imgUsuario: user.photoURL,
+    descripcion: '',
     imgPortada: 'imagenes/ImgDelUsuario.png',
   });
 };
@@ -122,6 +123,7 @@ export const agregarFacebookUser = (id, user) => {
     username: user.displayName,
     correo: user.email,
     imgUsuario: user.photoURL,
+    descripcion: '',
     imgPortada: 'imagenes/ImgDelUsuario.png',
   });
 };
