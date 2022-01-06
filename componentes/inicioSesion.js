@@ -160,7 +160,7 @@ export const inicioSesion = (selectorForm, containerError) => {
                   descripcion: '',
                   name: '',
                   ubicacion: ' ',
-                  imgUsuario: facebookUser.photoUrl,
+                  imgUsuario: facebookUser.photoURL,
                   imgPortada: 'imagenes/ImgDelUsuario.png',
                 };
                 // agregando datos al sessionStorage

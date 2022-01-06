@@ -121,7 +121,7 @@ export const agregarFacebookUser = (id, user) => {
   return setDoc(colRefId, {
     username: user.displayName,
     correo: user.email,
-    imgUsuario: user.photoUrl,
+    imgUsuario: user.photoURL,
     imgPortada: 'imagenes/ImgDelUsuario.png',
   });
 };
