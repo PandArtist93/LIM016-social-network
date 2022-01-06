@@ -108,6 +108,17 @@ export const agregarGoogleUser = (id, user) => {
   });
 };
 
+// Agregar  usuario a firestore desde boton de facebook
+export const agregarFacebookUser = (id, user) => {
+  const colRefId = doc(db, 'usuarios', id);
+  return setDoc(colRefId, {
+    username: user.displayName,
+    correo: user.email,
+    imgUsuario: 'imagenes/user-circle-fill.png',
+    imgPortada: 'imagenes/ImgDelUsuario.png',
+  });
+};
+
 // Buscar posts creados por el usuario logueado
 export const obtenerUserPosts = async () => {
   const userId = JSON.parse(sessionStorage.userSession).id;

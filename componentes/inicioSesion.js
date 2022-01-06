@@ -7,7 +7,7 @@ import {
 import { proveedor, GoogleAuthProvider, proveedorFB } from '../firebase/config.js';
 import { modalInicioSesion } from './errores.js';
 import { mostrarYocultarClave } from './home.js';
-import { obtenerById, agregarGoogleUser } from '../firebase/funcionesFirestore.js';
+import { obtenerById, agregarGoogleUser, agregarFacebookUser } from '../firebase/funcionesFirestore.js';
 
 // Creacion de formulario de inicio de Sesión de forma dinámica
 export const formInicioSesion = () => {
@@ -136,12 +136,27 @@ export const inicioSesion = (selectorForm, containerError) => {
     facebookInicioSesion(proveedorFB)
       // eslint-disable-next-line no-unused-vars
       .then((result) => {
-        // console.log(result);
-        window.location.hash = '#/artmuro';
+        const facebookUser = result.user;
+        console.log(result);
+        agregarFacebookUser(facebookUser.uid, facebookUser)
+        .then(() => {
+          const data = {
+            correo: facebookUser.email,
+            username: facebookUser.displayName,
+            id: facebookUser.uid,
+            descripcion: '',
+            name: '',
+            ubicacion: ' ',
+            imgUsuario: 'imagenes/user-circle-fill.png',
+            imgPortada: 'imagenes/ImgDelUsuario.png',
+          };
+          // agregando datos al sessionStorage
+          sessionStorage.setItem('userSession', JSON.stringify(data));
+          window.location.hash = '#/artmuro';
+        });
         // This gives you a Facebook Access Token. You can use it to access the Facebook API.
         // const credential = FacebookAuthProvider.credentialFromResult(result);
         // const token = credential.accessToken;
-        // const user = result.user;
         // console.log(user);
       });
   });
