@@ -87,6 +87,7 @@ export const subirLikes = async (idPost, dataLikes) => {
 // Para actualizar datos del perfil en la coleccion usuarios
 export const actualizarPerfil = (userId, name, username, ubicacion, descripcion, imgUsuario, imgPortada) => {
   const colRefId = doc(db, 'usuarios', userId);
+  console.log("Entre aqui");
   return updateDoc(colRefId, {
     username,
     name,
@@ -97,13 +98,19 @@ export const actualizarPerfil = (userId, name, username, ubicacion, descripcion,
   });
 };
 
+export const searchUser = async (userId) => {
+  const colRef = doc(db, 'usuarios', userId);
+  const user = getDoc(colRef);
+  return user;
+};
+
 // Agregar  usuario a firestore desde boton de google
 export const agregarGoogleUser = (id, user) => {
   const colRefId = doc(db, 'usuarios', id);
   return setDoc(colRefId, {
     username: user.displayName,
     correo: user.email,
-    imgUsuario: 'imagenes/user-circle-fill.png',
+    imgUsuario: user.photoURL,
     imgPortada: 'imagenes/ImgDelUsuario.png',
   });
 };

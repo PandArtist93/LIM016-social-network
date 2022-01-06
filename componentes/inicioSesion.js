@@ -7,7 +7,7 @@ import {
 import { proveedor, GoogleAuthProvider, proveedorFB } from '../firebase/config.js';
 import { modalInicioSesion } from './errores.js';
 import { mostrarYocultarClave } from './home.js';
-import { obtenerById, agregarGoogleUser, agregarFacebookUser } from '../firebase/funcionesFirestore.js';
+import { obtenerById, agregarGoogleUser, agregarFacebookUser, searchUser } from '../firebase/funcionesFirestore.js';
 
 // Creacion de formulario de inicio de Sesión de forma dinámica
 export const formInicioSesion = () => {
@@ -97,32 +97,35 @@ export const inicioSesion = (selectorForm, containerError) => {
   botongoogle.addEventListener('click', () => {
     sessionStorage.clear();
     googleInicioSesion(proveedor)
-      // eslint-disable-next-line no-unused-vars
       .then((result) => {
         const googleUser = result.user;
-        console.log(googleUser);
-        console.log(googleUser.id);
-        agregarGoogleUser(googleUser.uid, googleUser)
-          .then(() => {
-            const data = {
-              correo: googleUser.email,
-              username: googleUser.displayName,
-              id: googleUser.uid,
-              descripcion: '',
-              name: '',
-              ubicacion: ' ',
-              imgUsuario: 'imagenes/user-circle-fill.png',
-              imgPortada: 'imagenes/ImgDelUsuario.png',
-            };
-            // agregando datos al sessionStorage
-            sessionStorage.setItem('userSession', JSON.stringify(data));
-            window.location.hash = '#/artmuro';
+        console.log("Probando");
+        searchUser(result.user.uid)
+          .then((user) => {
+            if (user.exists()) {
+              const data = user.data();
+              data.id = googleUser.uid;
+              sessionStorage.setItem('userSession', JSON.stringify(data));
+              window.location.hash = '#/artmuro';
+              return;
+            }
+            agregarGoogleUser(googleUser.uid, googleUser)
+              .then(() => {
+                const data = {
+                  correo: googleUser.email,
+                  username: googleUser.displayName,
+                  id: googleUser.uid,
+                  descripcion: '',
+                  name: '',
+                  ubicacion: ' ',
+                  imgUsuario: googleUser.photoURL,
+                  imgPortada: 'imagenes/ImgDelUsuario.png',
+                };
+                // agregando datos al sessionStorage
+                sessionStorage.setItem('userSession', JSON.stringify(data));
+                window.location.hash = '#/artmuro';
+              });
           });
-        // This gives you a Google Access Token. You can use it to access the Google API.
-        // const credential = GoogleAuthProvider.credentialFromResult(result);
-        // const token = credential.accessToken;
-        // const user = result.user;
-        // console.log(user);
       })
       .catch((error) => {
         const credential = GoogleAuthProvider.credentialFromError(error);
@@ -138,23 +141,31 @@ export const inicioSesion = (selectorForm, containerError) => {
       // eslint-disable-next-line no-unused-vars
       .then((result) => {
         const facebookUser = result.user;
-        console.log(result);
-        console.log(facebookUser);
-        agregarFacebookUser(facebookUser.uid, facebookUser)
-          .then(() => {
-            const data = {
-              correo: facebookUser.email,
-              username: facebookUser.displayName,
-              id: facebookUser.uid,
-              descripcion: '',
-              name: '',
-              ubicacion: ' ',
-              imgUsuario: facebookUser.photoUrl,
-              imgPortada: 'imagenes/ImgDelUsuario.png',
-            };
-            // agregando datos al sessionStorage
-            sessionStorage.setItem('userSession', JSON.stringify(data));
-            window.location.hash = '#/artmuro';
+        searchUser(result.user.uid)
+          .then((user) => {
+            if (user.exists()) {
+              const data = user.data();
+              data.id = facebookUser.uid;
+              sessionStorage.setItem('userSession', JSON.stringify(data));
+              window.location.hash = '#/artmuro';
+              return;
+            }
+            agregarFacebookUser(facebookUser.uid, facebookUser)
+              .then(() => {
+                const data = {
+                  correo: facebookUser.email,
+                  username: facebookUser.displayName,
+                  id: facebookUser.uid,
+                  descripcion: '',
+                  name: '',
+                  ubicacion: ' ',
+                  imgUsuario: facebookUser.photoUrl,
+                  imgPortada: 'imagenes/ImgDelUsuario.png',
+                };
+                // agregando datos al sessionStorage
+                sessionStorage.setItem('userSession', JSON.stringify(data));
+                window.location.hash = '#/artmuro';
+              });
           });
         // This gives you a Facebook Access Token. You can use it to access the Facebook API.
         // const credential = FacebookAuthProvider.credentialFromResult(result);
