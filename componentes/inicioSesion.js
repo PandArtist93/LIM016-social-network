@@ -100,7 +100,8 @@ export const inicioSesion = (selectorForm, containerError) => {
       // eslint-disable-next-line no-unused-vars
       .then((result) => {
         const googleUser = result.user;
-
+        console.log(googleUser);
+        console.log(googleUser.id);
         agregarGoogleUser(googleUser.uid, googleUser)
           .then(() => {
             const data = {
@@ -138,22 +139,23 @@ export const inicioSesion = (selectorForm, containerError) => {
       .then((result) => {
         const facebookUser = result.user;
         console.log(result);
+        console.log(facebookUser);
         agregarFacebookUser(facebookUser.uid, facebookUser)
-        .then(() => {
-          const data = {
-            correo: facebookUser.email,
-            username: facebookUser.displayName,
-            id: facebookUser.uid,
-            descripcion: '',
-            name: '',
-            ubicacion: ' ',
-            imgUsuario: 'imagenes/user-circle-fill.png',
-            imgPortada: 'imagenes/ImgDelUsuario.png',
-          };
-          // agregando datos al sessionStorage
-          sessionStorage.setItem('userSession', JSON.stringify(data));
-          window.location.hash = '#/artmuro';
-        });
+          .then(() => {
+            const data = {
+              correo: facebookUser.email,
+              username: facebookUser.displayName,
+              id: facebookUser.uid,
+              descripcion: '',
+              name: '',
+              ubicacion: ' ',
+              imgUsuario: facebookUser.photoUrl,
+              imgPortada: 'imagenes/ImgDelUsuario.png',
+            };
+            // agregando datos al sessionStorage
+            sessionStorage.setItem('userSession', JSON.stringify(data));
+            window.location.hash = '#/artmuro';
+          });
         // This gives you a Facebook Access Token. You can use it to access the Facebook API.
         // const credential = FacebookAuthProvider.credentialFromResult(result);
         // const token = credential.accessToken;
