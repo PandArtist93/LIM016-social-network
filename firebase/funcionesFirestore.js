@@ -87,7 +87,6 @@ export const subirLikes = async (idPost, dataLikes) => {
 // Para actualizar datos del perfil en la coleccion usuarios
 export const actualizarPerfil = (userId, name, username, ubicacion, descripcion, imgUsuario, imgPortada) => {
   const colRefId = doc(db, 'usuarios', userId);
-  console.log("Entre aqui");
   return updateDoc(colRefId, {
     username,
     name,
@@ -110,8 +109,10 @@ export const agregarGoogleUser = (id, user) => {
   return setDoc(colRefId, {
     username: user.displayName,
     correo: user.email,
-    imgUsuario: user.photoURL,
     descripcion: '',
+    name: '',
+    ubicacion: '',
+    imgUsuario: user.photoURL,
     imgPortada: 'imagenes/ImgDelUsuario.png',
   });
 };
@@ -122,8 +123,10 @@ export const agregarFacebookUser = (id, user) => {
   return setDoc(colRefId, {
     username: user.displayName,
     correo: user.email,
-    imgUsuario: user.photoURL,
     descripcion: '',
+    name: '',
+    ubicacion: '',
+    imgUsuario: user.photoURL,
     imgPortada: 'imagenes/ImgDelUsuario.png',
   });
 };

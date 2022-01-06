@@ -99,7 +99,6 @@ export const inicioSesion = (selectorForm, containerError) => {
     googleInicioSesion(proveedor)
       .then((result) => {
         const googleUser = result.user;
-        console.log("Probando");
         searchUser(result.user.uid)
           .then((user) => {
             if (user.exists()) {
@@ -141,7 +140,6 @@ export const inicioSesion = (selectorForm, containerError) => {
       // eslint-disable-next-line no-unused-vars
       .then((result) => {
         const facebookUser = result.user;
-        console.log(facebookUser);
         searchUser(result.user.uid)
           .then((user) => {
             if (user.exists()) {
