@@ -7,7 +7,9 @@ import {
 import { proveedor, GoogleAuthProvider, proveedorFB } from '../firebase/config.js';
 import { modalInicioSesion } from './errores.js';
 import { mostrarYocultarClave } from './home.js';
-import { obtenerById, agregarGoogleUser, agregarFacebookUser, searchUser } from '../firebase/funcionesFirestore.js';
+import {
+  obtenerById, agregarGoogleUser, agregarFacebookUser, searchUser,
+} from '../firebase/funcionesFirestore.js';
 
 // Creacion de formulario de inicio de Sesión de forma dinámica
 export const formInicioSesion = () => {

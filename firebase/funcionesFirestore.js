@@ -46,10 +46,10 @@ export const obtenerById = (idUser, nameColeccion) => {
 export const agregarDataUserFS = async (id, Username, Correo, Name, Descripcion, Ubicacion, srcImg, srcImgPortada) => {
   const colRefId = doc(db, 'usuarios', id);
   await setDoc(colRefId, {
-    username: Name,
+    username: Username,
     correo: Correo,
     ubicacion: Ubicacion,
-    name: Username,
+    name: Name,
     descripcion: Descripcion,
     imgUsuario: srcImg,
     imgPortada: srcImgPortada,

@@ -6,7 +6,7 @@ export const contenidoHeader = () => {
   const userData = validateSessionStorage();
   const headerMuro = `
         <div class="enlacePerfil">
-            <img src="${userData.imgUsuario}" class="imagenUsuario">
+            <a href="#/artperfil"> <img src="${userData.imgUsuario}" class="imagenUsuario"></a>
             <p class="nombreUsuario"><a id="perfil" href="#/artperfil">${userData.username}</a></p>
         </div>
         <img src="imagenes/CarePets.svg" class="titulo-header">
